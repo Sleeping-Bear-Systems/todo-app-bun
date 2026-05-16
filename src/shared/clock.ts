@@ -4,7 +4,7 @@ export interface Clock {
 
 export const systemClock: Clock = {
   now: () => new Date(),
-} as const;
+};
 
 export function createFixedClock(now: Date): Clock {
   return {
