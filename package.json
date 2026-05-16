@@ -9,6 +9,8 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
+    "start": "bun run ./src/index.ts",
+    "dev": "bun run --watch ./src/index.ts",
     "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
     "ts:check": "tsc --noEmit"
