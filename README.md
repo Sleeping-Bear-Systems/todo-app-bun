@@ -2,7 +2,7 @@
 
 ## Scripts
 
-## TypeScript Type Check
+### TypeScript Type Check
 
 ```sh
 bun run typecheck
