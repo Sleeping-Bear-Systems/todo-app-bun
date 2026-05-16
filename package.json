@@ -1,16 +1,18 @@
 {
-	"$schema": "https://json.schemastore.org/package.json",
-	"name": "todo-app",
-	"module": "index.ts",
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.15",
-		"@tsconfig/bun": "^1.0.10",
-		"@types/bun": "latest",
-		"typescript": "^6.0.3"
-	},
-	"scripts": {
-		"typecheck": "tsc --noEmit"
-	},
-	"private": true,
-	"type": "module"
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "todo-app",
+  "module": "index.ts",
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "@tsconfig/bun": "^1.0.10",
+    "@types/bun": "latest",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "biome:check": "biome check .",
+    "biome:fix": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "private": true,
+  "type": "module"
 }
