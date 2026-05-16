@@ -10,9 +10,9 @@
   },
   "scripts": {
     "biome:check": "biome check .",
-    "biome:fix": "biome check --write ."
+    "biome:fix": "biome check --write .",
+    "typecheck": "tsc --noEmit"
   },
-  "typecheck": "tsc --noEmit",
   "private": true,
   "type": "module"
 }
