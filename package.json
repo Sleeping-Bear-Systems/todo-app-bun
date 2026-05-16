@@ -16,6 +16,7 @@
     "start": "bun run ./src/index.ts",
     "dev": "bun run --watch ./src/index.ts",
     "test": "bun test",
+    "biome:ci": "bunx biome ci .",
     "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
     "ts:check": "tsc --noEmit"
