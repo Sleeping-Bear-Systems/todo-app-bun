@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { pingApi } from "./feature/pingApi.ts";
+import { pingApi } from "./feature/ping/pingApi.ts";
 import { apiRoutes } from "./shared/apiRoutes.ts";
 import { appConfig } from "./shared/appConfig.ts";
 
