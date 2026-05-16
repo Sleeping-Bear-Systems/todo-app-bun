@@ -8,18 +8,19 @@
     "@types/bun": "latest",
     "typescript": "^6.0.3"
   },
+  "dependencies": {
+    "hono": "^4.12.19",
+    "zod": "^4.4.3"
+  },
   "scripts": {
     "start": "bun run ./src/index.ts",
     "dev": "bun run --watch ./src/index.ts",
     "test": "bun test",
+    "biome:ci": "bunx biome ci .",
     "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
     "ts:check": "tsc --noEmit"
   },
   "private": true,
-  "type": "module",
-  "dependencies": {
-    "hono": "^4.12.19",
-    "zod": "^4.4.3"
-  }
+  "type": "module"
 }
