@@ -5,7 +5,7 @@
 ### TypeScript Type Check
 
 ```sh
-bun run typecheck
+bun run ts:check
 ```
 
 ### Linting & Formatting
