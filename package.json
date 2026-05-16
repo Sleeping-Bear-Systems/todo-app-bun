@@ -1,12 +1,14 @@
 {
   "name": "todo-app",
   "module": "index.ts",
-  "type": "module",
-  "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@tsconfig/bun": "^1.0.10",
+    "@types/bun": "latest",
+    "typescript": "^6.0.3"
   },
-  "peerDependencies": {
-    "typescript": "^5"
-  }
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "private": true,
+  "type": "module"
 }
