@@ -1,4 +1,4 @@
-import type { AppVariables } from "@shared/appVariables";
+import type { AppVariables } from "@shared/appVariables.ts";
 import { Hono } from "hono";
 
 export const createTaskApi = new Hono<{ Variables: AppVariables }>().post(

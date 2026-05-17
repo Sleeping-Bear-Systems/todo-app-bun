@@ -1,5 +1,5 @@
 import type { AppVariables } from "@shared/appVariables.ts";
-import { Page } from "@shared/page";
+import { Page } from "@shared/page.tsx";
 import { Hono } from "hono";
 
 export const createTaskPage = new Hono<{ Variables: AppVariables }>().get(
