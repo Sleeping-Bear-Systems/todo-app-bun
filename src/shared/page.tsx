@@ -5,7 +5,7 @@ interface PageProps extends PropsWithChildren {
 }
 
 export const Page = (props: PageProps) => {
-  const validTitle = props.title ?? "Art Show Tools";
+  const validTitle = props.title ?? "ToDo";
   return (
     <html lang="en">
       <head>

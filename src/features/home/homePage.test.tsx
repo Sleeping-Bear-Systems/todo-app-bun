@@ -11,7 +11,7 @@ describe("homePage", () => {
     const html = await response.text();
 
     expect(response.status).toBe(200);
-    expect(html).toContain("<title>Art Show Tools</title>");
+    expect(html).toContain("<title>ToDo</title>");
     expect(html).toContain("<h1>Home</h1>");
   });
 });
