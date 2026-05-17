@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import type { AppVariables } from "@shared/appVariables";
+import type { AppVariables } from "@shared/appVariables.ts";
 import { Hono } from "hono";
 
 import { aboutPage } from "./aboutPage";

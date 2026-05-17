@@ -1,6 +1,6 @@
-import type { AppVariables } from "@shared/appVariables";
-import { Page } from "@shared/page";
-import { pageRoutes } from "@shared/pageRoutes";
+import type { AppVariables } from "@shared/appVariables.ts";
+import { Page } from "@shared/page.tsx";
+import { pageRoutes } from "@shared/pageRoutes.ts";
 import { Hono } from "hono";
 
 export const aboutPage = new Hono<{ Variables: AppVariables }>().get(
