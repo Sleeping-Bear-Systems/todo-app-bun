@@ -12,6 +12,7 @@ export const Page = (props: PageProps) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{validTitle}</title>
+        <script src="/scripts/datastar.js" defer />
       </head>
       <body>{props.children}</body>
     </html>
