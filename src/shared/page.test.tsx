@@ -9,6 +9,13 @@ describe("Page", () => {
     expect(htmlString).toContain("<title>Test Page</title>");
   });
 
+  test("renders the default title when title is omitted", () => {
+    const html = Page({ children: null });
+    const htmlString = String(html);
+
+    expect(htmlString).toContain("<title>ToDo</title>");
+  });
+
   test("renders with correct lang attribute", () => {
     const html = Page({ title: "Home", children: null });
     const htmlString = String(html);
