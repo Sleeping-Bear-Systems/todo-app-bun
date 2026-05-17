@@ -9,7 +9,7 @@ export type User = {
 export async function addUser(
   username: string,
   password: string,
-): Promise<User | undefined> {
+): Promise<User> {
   const normalizedUsername = normalizeUsername(username);
 
   const existingUser = getUserByUsername(username);
