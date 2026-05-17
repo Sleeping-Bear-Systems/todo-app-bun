@@ -13,5 +13,6 @@ describe("homePage", () => {
     expect(response.status).toBe(200);
     expect(html).toContain("<title>ToDo</title>");
     expect(html).toContain("<h1>Home</h1>");
+    expect(html).toContain('<a href="/about">About</a>');
   });
 });
