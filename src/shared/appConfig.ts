@@ -25,5 +25,3 @@ export function createAppConfig(
     },
   };
 }
-
-export const appConfig = createAppConfig(Bun.env);

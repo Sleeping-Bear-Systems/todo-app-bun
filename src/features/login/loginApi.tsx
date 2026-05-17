@@ -1,5 +1,4 @@
 import { zValidator } from "@hono/zod-validator";
-import { appConfig } from "@shared/appConfig.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { getUserByUsername } from "@shared/user.ts";
@@ -23,6 +22,7 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
     }
   }),
   async (c) => {
+    const appConfig = c.get("appConfig");
     const now = c.get("clock").now();
     const { username, password } = c.req.valid("json");
     const user = getUserByUsername(username);
