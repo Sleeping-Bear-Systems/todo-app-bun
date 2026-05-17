@@ -1,9 +1,11 @@
+import { homePage } from "@features/home/homePage.tsx";
 import { pingApi } from "@features/ping/pingApi.ts";
 import { apiRoutes } from "@shared/apiRoutes.ts";
 import { appConfig } from "@shared/appConfig.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { systemClock } from "@shared/clock.ts";
 import { createClockMiddleware } from "@shared/clockMiddleware.ts";
+import { pageRoutes } from "@shared/pageRoutes.ts";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 
@@ -13,7 +15,9 @@ const app = new Hono<{ Variables: AppVariables }>()
   // serve static files from public directory
   .use("/*", serveStatic({ root: "./public" }))
   // API routes
-  .route(apiRoutes.PING, pingApi);
+  .route(apiRoutes.PING, pingApi)
+  // Page routes
+  .route(pageRoutes.HOME, homePage);
 
 export default {
   port: appConfig.port,
