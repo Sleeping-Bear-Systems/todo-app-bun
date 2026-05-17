@@ -12,7 +12,7 @@ export async function addUser(
 ): Promise<User> {
   const normalizedUsername = normalizeUsername(username);
 
-  const existingUser = getUserByUsername(username);
+  const existingUser = getUserByUsername(normalizedUsername);
   if (existingUser !== undefined) {
     throw new Error("User exists");
   }
