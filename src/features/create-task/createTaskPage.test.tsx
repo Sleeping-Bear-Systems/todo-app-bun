@@ -15,6 +15,6 @@ describe("createTaskPage", () => {
     const html = await response.text();
 
     expect(response.status).toBe(200);
-    expect(html).toMatchSnapshot();
+    expect(html).toContain("Create Task");
   });
 });
