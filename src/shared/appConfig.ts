@@ -6,6 +6,10 @@ const environmentVariablesSchema = z.object({
 
 export type AppConfig = Readonly<{
   port: number;
+  jwt: {
+    secret: string;
+    cookie: string;
+  };
 }>;
 
 export function createAppConfig(
@@ -14,6 +18,10 @@ export function createAppConfig(
   const environmentVariables = environmentVariablesSchema.parse(processEnv);
   const appConfig: AppConfig = {
     port: environmentVariables.PORT,
+    jwt: {
+      secret: "fake-jwt-secret",
+      cookie: "todo-app",
+    },
   };
   return appConfig;
 }

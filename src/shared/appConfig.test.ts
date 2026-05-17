@@ -6,13 +6,19 @@ describe("createAppConfig", () => {
   test("uses the default port when PORT is missing", () => {
     const appConfig = createAppConfig({});
 
-    expect(appConfig).toEqual({ port: 3000 });
+    expect(appConfig).toEqual({
+      port: 3000,
+      jwt: { secret: "fake-jwt-secret", cookie: "todo-app" },
+    });
   });
 
   test("coerces PORT to a number", () => {
     const appConfig = createAppConfig({ PORT: "8080" });
 
-    expect(appConfig).toEqual({ port: 8080 });
+    expect(appConfig).toEqual({
+      port: 8080,
+      jwt: { secret: "fake-jwt-secret", cookie: "todo-app" },
+    });
   });
 
   test("rejects ports below the valid range", () => {
