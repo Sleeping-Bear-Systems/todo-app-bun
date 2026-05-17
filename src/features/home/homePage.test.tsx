@@ -4,7 +4,7 @@ import { Hono } from "hono";
 import { homePage } from "./homePage.tsx";
 
 describe("homePage", () => {
-  test("homePage renders the home page HTML", async () => {
+  test("renders the home page HTML", async () => {
     const app = new Hono<{ Variables: AppVariables }>().route("/", homePage);
 
     const response = await app.fetch(new Request("http://localhost/"));
