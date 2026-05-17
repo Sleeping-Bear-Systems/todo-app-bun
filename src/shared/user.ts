@@ -10,7 +10,7 @@ export async function addUser(
   username: string,
   password: string,
 ): Promise<User | undefined> {
-  var normalizedUsername = normalizeUsername(username);
+  const normalizedUsername = normalizeUsername(username);
 
   const existingUser = getUserByUsername(username);
   if (existingUser !== undefined) {
