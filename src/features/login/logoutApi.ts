@@ -1,4 +1,4 @@
-import { appConfig } from "@shared/appConfig";
+import { appConfig } from "@shared/appConfig.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { Hono } from "hono";
