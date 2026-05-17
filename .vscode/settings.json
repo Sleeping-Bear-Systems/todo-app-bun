@@ -31,5 +31,5 @@
   "[javascriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "cSpell.words": ["datastar"]
+  "cSpell.words": ["bunx", "datastar"]
 }
