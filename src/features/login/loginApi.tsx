@@ -31,7 +31,7 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
     }
     const isPasswordValid = await Bun.password.verify(
       password,
-      user?.passwordHash,
+      user.passwordHash,
     );
     if (!isPasswordValid) {
       throw new HTTPException(401, { message: "Invalid credentials" });
