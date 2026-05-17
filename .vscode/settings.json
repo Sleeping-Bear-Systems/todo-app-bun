@@ -30,5 +30,6 @@
   },
   "[javascriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
-  }
+  },
+  "cSpell.words": ["datastar"]
 }
