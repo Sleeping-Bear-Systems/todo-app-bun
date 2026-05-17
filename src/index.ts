@@ -1,4 +1,6 @@
 import { aboutPage } from "@features/about/aboutPage.tsx";
+import { createTaskApi } from "@features/create-task/createTaskApi.tsx";
+import { createTaskPage } from "@features/create-task/createTaskPage.tsx";
 import { homePage } from "@features/home/homePage.tsx";
 import { pingApi } from "@features/ping/pingApi.ts";
 import { apiRoutes } from "@shared/apiRoutes.ts";
@@ -17,8 +19,10 @@ const app = new Hono<{ Variables: AppVariables }>()
   .use("/*", serveStatic({ root: "./public" }))
   // API routes
   .route(apiRoutes.PING, pingApi)
+  .route(apiRoutes.CREATE_TASK, createTaskApi)
   // Page routes
   .route(pageRoutes.ABOUT, aboutPage)
+  .route(pageRoutes.CREATE_TASK, createTaskPage)
   .route(pageRoutes.HOME, homePage);
 
 export default {
