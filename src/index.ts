@@ -1,3 +1,4 @@
+import { aboutPage } from "@features/about/aboutPage.tsx";
 import { homePage } from "@features/home/homePage.tsx";
 import { pingApi } from "@features/ping/pingApi.ts";
 import { apiRoutes } from "@shared/apiRoutes.ts";
@@ -17,6 +18,7 @@ const app = new Hono<{ Variables: AppVariables }>()
   // API routes
   .route(apiRoutes.PING, pingApi)
   // Page routes
+  .route(pageRoutes.ABOUT, aboutPage)
   .route(pageRoutes.HOME, homePage);
 
 export default {
