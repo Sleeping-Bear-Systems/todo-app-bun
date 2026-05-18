@@ -1,6 +1,6 @@
-import type { AppConfig } from "@shared/appConfig.ts";
-import type { AppVariables } from "@shared/appVariables.ts";
 import type { MiddlewareHandler } from "hono";
+import type { AppConfig } from "./appConfig.ts";
+import type { AppVariables } from "./appVariables.ts";
 
 export function createAppConfigMiddleware(
   appConfig: AppConfig,

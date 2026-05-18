@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { createAppConfig } from "@shared/appConfig.ts";
-import { createAppConfigMiddleware } from "@shared/appConfigMiddleware.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { Hono } from "hono";
+import { createAppConfig } from "./appConfig.ts";
+import { createAppConfigMiddleware } from "./appConfigMiddleware.ts";
 
 describe("createAppConfigMiddleware", () => {
   test("injects app config into the request context", async () => {

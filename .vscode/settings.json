@@ -2,6 +2,7 @@
   "editor.formatOnSave": true,
   "files.autoSave": "afterDelay",
   "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit",
     "source.fixAll.biome": "explicit"
   },
   "[javascript]": {

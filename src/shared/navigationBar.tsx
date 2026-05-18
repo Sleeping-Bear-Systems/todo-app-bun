@@ -1,5 +1,5 @@
-import { apiRoutes } from "@shared/apiRoutes.ts";
-import { pageRoutes } from "@shared/pageRoutes.ts";
+import { apiRoutes } from "./apiRoutes.ts";
+import { pageRoutes } from "./pageRoutes.ts";
 
 export function navigationBar() {
   return (
