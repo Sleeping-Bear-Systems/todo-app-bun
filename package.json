@@ -15,12 +15,13 @@
     "zod": "^4.4.3"
   },
   "scripts": {
-    "start": "bun run ./src/index.ts",
-    "dev": "bun run --watch ./src/index.ts",
-    "test": "bun test",
-    "biome:ci": "bunx biome ci .",
     "biome:check": "biome check .",
+    "biome:ci": "bunx biome ci .",
     "biome:fix": "biome check --write .",
+    "check": "bun run ts:check && bun run biome:check",
+    "debug": "bun --inspect-wait ./src/index.ts",
+    "dev": "bun run --watch ./src/index.ts",
+    "start": "bun run ./src/index.ts",
     "ts:check": "tsc --noEmit"
   },
   "private": true,
