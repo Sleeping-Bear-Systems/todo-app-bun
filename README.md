@@ -1,5 +1,16 @@
 # todo-app
 
+## Development Environment
+
+### Setup
+
+Use the `set-dev` script to create a PowerShell session and source the environment variables
+from the `.environment` file.
+
+```sh
+set-dev -Verbose -LocalEnvFile .\.environment
+```
+
 ## Scripts
 
 ### TypeScript Type Check
