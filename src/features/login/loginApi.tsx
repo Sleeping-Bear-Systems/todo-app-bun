@@ -16,7 +16,7 @@ const loginRequestSchema = z.object({
 
 export const loginApi = new Hono<{ Variables: AppVariables }>().post(
   "/",
-  zValidator("json", loginRequestSchema, (result, _c) => {
+  zValidator("form", loginRequestSchema, (result, _c) => {
     if (!result.success) {
       throw new HTTPException(400, { message: "Invalid credentials" });
     }
@@ -24,7 +24,7 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
   async (c) => {
     const appConfig = c.get("appConfig");
     const now = c.get("clock").now();
-    const { username, password } = c.req.valid("json");
+    const { username, password } = c.req.valid("form");
     const user = getUserByUsername(username);
     if (user === undefined) {
       throw new HTTPException(401, { message: "Invalid credentials" });
