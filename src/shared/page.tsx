@@ -1,5 +1,5 @@
+import { navigationBar } from "@shared/navigationBar.tsx";
 import type { PropsWithChildren } from "hono/jsx";
-import { navigationBar } from "./NavigationBar";
 
 interface PageProps extends PropsWithChildren {
   title?: string;
