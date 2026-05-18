@@ -18,7 +18,7 @@ export const Page = (props: PageProps) => {
       </head>
       <body>
         {navigationBar()}
-        {props.children}
+        <main>{props.children}</main>
       </body>
     </html>
   );
