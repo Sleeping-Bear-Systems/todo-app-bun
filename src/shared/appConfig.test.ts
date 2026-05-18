@@ -10,8 +10,24 @@ describe("createAppConfig", () => {
 
     expect(appConfig).toEqual({
       port: 3000,
+      environment: "development",
       jwt: { secret: validJwtSecret, cookie: "todo-app" },
     });
+  });
+
+  test("uses the default environment when NODE_ENV is missing", () => {
+    const appConfig = createAppConfig({ JWT_SECRET: validJwtSecret });
+
+    expect(appConfig.environment).toBe("development");
+  });
+
+  test("uses NODE_ENV when it is provided", () => {
+    const appConfig = createAppConfig({
+      JWT_SECRET: validJwtSecret,
+      NODE_ENV: "production",
+    });
+
+    expect(appConfig.environment).toBe("production");
   });
 
   test("coerces PORT to a number", () => {
@@ -22,6 +38,7 @@ describe("createAppConfig", () => {
 
     expect(appConfig).toEqual({
       port: 8080,
+      environment: "development",
       jwt: { secret: validJwtSecret, cookie: "todo-app" },
     });
   });
