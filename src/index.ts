@@ -1,8 +1,9 @@
 import { aboutPage } from "@features/about/aboutPage.tsx";
-import { createToDoApi } from "@features/create-todo/createToDoApi";
-import { createToDoPage } from "@features/create-todo/createToDoPage";
+import { createToDoApi } from "@features/create-todo/createToDoApi.tsx";
+import { createToDoPage } from "@features/create-todo/createToDoPage.tsx";
 import { homePage } from "@features/home/homePage.tsx";
 import { loginApi } from "@features/login/loginApi.tsx";
+import { loginPage } from "@features/login/loginPage.tsx";
 import { logoutApi } from "@features/login/logoutApi.ts";
 import { pingApi } from "@features/ping/pingApi.ts";
 import { apiRoutes } from "@shared/apiRoutes.ts";
@@ -36,6 +37,7 @@ const app = new Hono<{ Variables: AppVariables }>()
   // Page routes
   .route(pageRoutes.ABOUT, aboutPage)
   .route(pageRoutes.CREATE_TODO, createToDoPage)
+  .route(pageRoutes.LOGIN, loginPage)
   .route(pageRoutes.HOME, homePage);
 
 export default {
