@@ -1,7 +1,7 @@
 @rootUrl = http://localhost:3000
 
-### post create task
-POST {{rootUrl}}/api/create-task
+### post create todo
+POST {{rootUrl}}/api/create-todo
 Content-Type: application/json
 
 {}
