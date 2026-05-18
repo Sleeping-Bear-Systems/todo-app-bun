@@ -50,7 +50,7 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
     setCookie(c, appConfig.jwt.cookie, token, {
       httpOnly: true,
       sameSite: "Strict",
-      secure: true,
+      secure: appConfig.environment !== "development",
       expires: addDays(now, 1),
     });
     return c.redirect(pageRoutes.HOME);
