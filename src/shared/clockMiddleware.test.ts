@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import type { AppVariables } from "@shared/appVariables.ts";
-import { createFixedClock } from "@shared/clock.ts";
 import { createClockMiddleware } from "@shared/clockMiddleware.ts";
 import { Hono } from "hono";
+import type { AppVariables } from "./appVariables.ts";
+import { createFixedClock } from "./clock.ts";
 
 describe("createClockMiddleware", () => {
   test("injects the clock into the request context", async () => {

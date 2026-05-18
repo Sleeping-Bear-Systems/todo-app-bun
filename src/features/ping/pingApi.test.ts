@@ -3,7 +3,6 @@ import type { AppVariables } from "@shared/appVariables.ts";
 import { type Clock, createFixedClock } from "@shared/clock.ts";
 import { createClockMiddleware } from "@shared/clockMiddleware.ts";
 import { Hono } from "hono";
-
 import { pingApi } from "./pingApi.ts";
 
 describe("pingApi", () => {

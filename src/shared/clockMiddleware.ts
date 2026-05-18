@@ -1,6 +1,6 @@
-import type { AppVariables } from "@shared/appVariables.ts";
-import type { Clock } from "@shared/clock.ts";
 import type { MiddlewareHandler } from "hono";
+import type { AppVariables } from "./appVariables.ts";
+import type { Clock } from "./clock.ts";
 
 export function createClockMiddleware(
   clock: Clock,
