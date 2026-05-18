@@ -1,19 +1,19 @@
 import { describe, expect, test } from "bun:test";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { Hono } from "hono";
-import { createTaskPage } from "./createTaskPage";
+import { createToDoPage } from "./createToDoPage";
 
-describe("createTaskPage", () => {
-  test("renders the create task page HTML", async () => {
+describe("createToDoPage", () => {
+  test("renders the create todo page HTML", async () => {
     const app = new Hono<{ Variables: AppVariables }>().route(
       "/",
-      createTaskPage,
+      createToDoPage,
     );
 
     const response = await app.fetch(new Request("http://localhost/"));
     const html = await response.text();
 
     expect(response.status).toBe(200);
-    expect(html).toContain("Create Task");
+    expect(html).toContain("Create ToDo");
   });
 });
