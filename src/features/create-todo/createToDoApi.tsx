@@ -1,7 +1,7 @@
 import type { AppVariables } from "@shared/appVariables.ts";
 import { Hono } from "hono";
 
-export const createTaskApi = new Hono<{ Variables: AppVariables }>().post(
+export const createToDoApi = new Hono<{ Variables: AppVariables }>().post(
   "/",
   (c) => {
     return c.json({}, 200);
