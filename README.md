@@ -2,13 +2,16 @@
 
 ## Development Environment
 
+### 1Password
+1Password is used for managing secrets for the application: [Secrets](https://www.1password.dev/cli/use-cases#secrets)
+
 ### Setup
 
-Use the `set-dev` script to create a PowerShell session and source the environment variables
+Use the 1Password script to create a PowerShell session and source the environment variables
 from the `.environment` file.
 
 ```sh
-set-dev -Verbose -LocalEnvFile .\.environment
+op run --no-masking --env-file=.\.environment -- pwsh
 ```
 
 ## Scripts
@@ -28,3 +31,4 @@ bun run biome:check
 ```sh
 bun run biome:fix
 ```
+
