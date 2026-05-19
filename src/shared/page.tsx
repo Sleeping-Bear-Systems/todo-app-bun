@@ -14,7 +14,7 @@ export const Page = (props: PageProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{validTitle}</title>
         <link rel="stylesheet" href="/styles/app.css" />
-        <script type="module" src="/scripts/datastar.js" defer />
+        <script src="/scripts/datastar.js" defer type="module" />
       </head>
       <body>
         {navigationBar()}

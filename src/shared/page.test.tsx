@@ -33,7 +33,7 @@ describe("Page", () => {
       '<meta name="viewport" content="width=device-width, initial-scale=1.0"',
     );
     expect(htmlString).toContain(
-      '<script src="/scripts/datastar.js" defer=""></script>',
+      '<script src="/scripts/datastar.js" defer="" type="module"></script>',
     );
     expect(htmlString).toContain("</head>");
     expect(htmlString).toContain("<body>");
