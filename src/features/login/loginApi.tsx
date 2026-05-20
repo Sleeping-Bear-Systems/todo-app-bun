@@ -1,5 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 import type { AppVariables } from "@shared/appVariables.ts";
+import { sseRedirect } from "@shared/datastar";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { getUserByUsername } from "@shared/user.ts";
 import { addDays } from "date-fns";
@@ -54,6 +55,6 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
       secure: appConfig.environment !== "development",
       expires: addDays(now, 1),
     });
-    return c.redirect(pageRoutes.HOME);
+    return await sseRedirect(c, pageRoutes.HOME);
   },
 );
