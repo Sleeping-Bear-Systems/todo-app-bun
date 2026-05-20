@@ -7,7 +7,7 @@ export const logoutApi = new Hono<{ Variables: AppVariables }>().post(
   "/",
   (c) => {
     const appConfig = c.get("appConfig");
-    deleteCookie(c, appConfig.jwt.cookie);
+    deleteCookie(c, appConfig.jwt.cookieName);
     return c.redirect(pageRoutes.LOGIN);
   },
 );

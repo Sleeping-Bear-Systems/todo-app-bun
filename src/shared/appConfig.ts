@@ -11,7 +11,7 @@ export type AppConfig = Readonly<{
   environment: string;
   jwt: {
     secret: string;
-    cookie: string;
+    cookieName: string;
   };
 }>;
 
@@ -24,7 +24,7 @@ export function createAppConfig(
     environment: environmentVariables.NODE_ENV,
     jwt: {
       secret: environmentVariables.JWT_SECRET,
-      cookie: "todo-app",
+      cookieName: "todo-app",
     },
   };
 }

@@ -46,8 +46,9 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
         iat: Math.floor(now.getTime() / 1000),
       },
       appConfig.jwt.secret,
+      "HS256",
     );
-    setCookie(c, appConfig.jwt.cookie, token, {
+    setCookie(c, appConfig.jwt.cookieName, token, {
       httpOnly: true,
       sameSite: "Strict",
       secure: appConfig.environment !== "development",

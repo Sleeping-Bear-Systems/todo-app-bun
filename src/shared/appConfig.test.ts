@@ -11,7 +11,7 @@ describe("createAppConfig", () => {
     expect(appConfig).toEqual({
       port: 3000,
       environment: "development",
-      jwt: { secret: validJwtSecret, cookie: "todo-app" },
+      jwt: { secret: validJwtSecret, cookieName: "todo-app" },
     });
   });
 
@@ -39,7 +39,7 @@ describe("createAppConfig", () => {
     expect(appConfig).toEqual({
       port: 8080,
       environment: "development",
-      jwt: { secret: validJwtSecret, cookie: "todo-app" },
+      jwt: { secret: validJwtSecret, cookieName: "todo-app" },
     });
   });
 
