@@ -1,5 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 import type { AppVariables } from "@shared/appVariables.ts";
+import { sseRedirect } from "@shared/datastar.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { getUserByUsername } from "@shared/user.ts";
 import { addDays } from "date-fns";
@@ -16,7 +17,7 @@ const loginRequestSchema = z.object({
 
 export const loginApi = new Hono<{ Variables: AppVariables }>().post(
   "/",
-  zValidator("json", loginRequestSchema, (result, _c) => {
+  zValidator("form", loginRequestSchema, (result, _c) => {
     if (!result.success) {
       throw new HTTPException(400, { message: "Invalid credentials" });
     }
@@ -24,7 +25,7 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
   async (c) => {
     const appConfig = c.get("appConfig");
     const now = c.get("clock").now();
-    const { username, password } = c.req.valid("json");
+    const { username, password } = c.req.valid("form");
     const user = getUserByUsername(username);
     if (user === undefined) {
       throw new HTTPException(401, { message: "Invalid credentials" });
@@ -46,13 +47,14 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
         iat: Math.floor(now.getTime() / 1000),
       },
       appConfig.jwt.secret,
+      "HS256",
     );
-    setCookie(c, appConfig.jwt.cookie, token, {
+    setCookie(c, appConfig.jwt.cookieName, token, {
       httpOnly: true,
       sameSite: "Strict",
       secure: appConfig.environment !== "development",
       expires: addDays(now, 1),
     });
-    return c.redirect(pageRoutes.HOME);
+    return await sseRedirect(c, pageRoutes.HOME);
   },
 );

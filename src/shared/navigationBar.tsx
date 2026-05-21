@@ -12,6 +12,9 @@ export function navigationBar() {
           <a href={pageRoutes.ABOUT}>About</a>
         </li>
         <li>
+          <a href={pageRoutes.LOGIN}>Login</a>
+        </li>
+        <li>
           <form action={apiRoutes.LOGOUT} method="post">
             <button class="nav-link-button" type="submit">
               Logout
