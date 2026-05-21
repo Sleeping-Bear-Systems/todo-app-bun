@@ -14,6 +14,7 @@ import { systemClock } from "@shared/clock.ts";
 import { createClockMiddleware } from "@shared/clockMiddleware.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { addUser } from "@shared/user.ts";
+import { randomUUIDv7 } from "bun";
 import { type Context, Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
@@ -37,7 +38,7 @@ const app = new Hono<{ Variables: AppVariables }>()
   .use(
     "/api/*",
     requestId({
-      generator: (_c: Context) => Bun.randomUUIDv7().toString(),
+      generator: (_c: Context) => randomUUIDv7().toString(),
     }),
   )
   // serve static files from public directory
