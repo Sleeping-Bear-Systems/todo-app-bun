@@ -4,7 +4,7 @@ import type { AppVariables } from "./appVariables.ts";
 
 export const pageJwtMiddleware = createMiddleware<{ Variables: AppVariables }>(
   async (c, next) => {
-    const appConfig = c.get("appConfig");
+    const appConfig = c.var.appConfig;
     return await jwt({
       secret: appConfig.jwt.secret,
       cookie: appConfig.jwt.cookieName,
