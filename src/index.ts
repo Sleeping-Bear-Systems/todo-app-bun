@@ -17,6 +17,7 @@ import { addUser } from "@shared/user.ts";
 import { type Context, Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
+import { csrf } from "hono/csrf";
 import { requestId } from "hono/request-id";
 import { secureHeaders } from "hono/secure-headers";
 
@@ -29,6 +30,7 @@ const appConfig = createAppConfig(Bun.env);
 const app = new Hono<{ Variables: AppVariables }>()
   // middlewares
   .use(secureHeaders())
+  .use(csrf())
   .use("*", createAppConfigMiddleware(appConfig))
   .use("*", createClockMiddleware(systemClock))
   .use("/api/*", cors())
