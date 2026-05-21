@@ -14,8 +14,11 @@ import { systemClock } from "@shared/clock.ts";
 import { createClockMiddleware } from "@shared/clockMiddleware.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { addUser } from "@shared/user.ts";
-import { Hono } from "hono";
+import { type Context, Hono } from "hono";
 import { serveStatic } from "hono/bun";
+import { cors } from "hono/cors";
+import { requestId } from "hono/request-id";
+import { secureHeaders } from "hono/secure-headers";
 
 // temporary user
 // will be removed when IDP is hooked up
@@ -25,8 +28,16 @@ const appConfig = createAppConfig(Bun.env);
 
 const app = new Hono<{ Variables: AppVariables }>()
   // middlewares
+  .use(secureHeaders())
   .use("*", createAppConfigMiddleware(appConfig))
   .use("*", createClockMiddleware(systemClock))
+  .use("/api/*", cors())
+  .use(
+    "/api/*",
+    requestId({
+      generator: (_c: Context) => Bun.randomUUIDv7().toString(),
+    }),
+  )
   // serve static files from public directory
   .use("/*", serveStatic({ root: "./public" }))
   // API routes
