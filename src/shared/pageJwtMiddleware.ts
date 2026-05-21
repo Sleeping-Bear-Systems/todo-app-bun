@@ -1,6 +1,6 @@
 import { createMiddleware } from "hono/factory";
 import { jwt } from "hono/jwt";
-import type { AppVariables } from "./appVariables";
+import type { AppVariables } from "./appVariables.ts";
 
 export const pageJwtMiddleware = createMiddleware<{ Variables: AppVariables }>(
   async (c, next) => {

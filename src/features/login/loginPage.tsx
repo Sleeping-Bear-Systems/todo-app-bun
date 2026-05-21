@@ -9,14 +9,17 @@ export const loginPage = new Hono<{ Variables: AppVariables }>().get(
     return c.html(
       <Page>
         <h1>Login</h1>
-        <form id="login">
+        <form
+          id="login"
+          data-on:submit={`@post('${apiRoutes.LOGIN}', {contentType: 'form'})`}
+        >
           <div>
             <label for="username">Username</label>
             <input
               id="username"
               type="text"
               name="username"
-              data-bind-username
+              data-bind:username
               autocomplete="username"
               required
             />
@@ -27,17 +30,12 @@ export const loginPage = new Hono<{ Variables: AppVariables }>().get(
               id="password"
               type="password"
               name="password"
-              data-bind-password
+              data-bind:password
               autocomplete="current-password"
               required
             />
           </div>
-          <button
-            type="button"
-            data-on:click={`@post('${apiRoutes.LOGIN}', {contentType: 'form'})`}
-          >
-            Login
-          </button>
+          <button type="submit">Login</button>
         </form>
       </Page>,
     );

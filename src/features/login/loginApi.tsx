@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 import type { AppVariables } from "@shared/appVariables.ts";
-import { sseRedirect } from "@shared/datastar";
+import { sseRedirect } from "@shared/datastar.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { getUserByUsername } from "@shared/user.ts";
 import { addDays } from "date-fns";
