@@ -14,7 +14,7 @@ import { systemClock } from "@shared/clock.ts";
 import { createClockMiddleware } from "@shared/clockMiddleware.ts";
 import { createLoggerMiddleware } from "@shared/loggerMiddleware.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
-import { createStructuredLogger } from "@shared/structuredLogger";
+import { createStructuredLogger } from "@shared/structuredLogger.ts";
 import { addUser } from "@shared/user.ts";
 import { randomUUIDv7 } from "bun";
 import { type Context, Hono } from "hono";
