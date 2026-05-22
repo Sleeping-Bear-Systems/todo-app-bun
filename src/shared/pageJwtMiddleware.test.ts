@@ -7,7 +7,7 @@ import { createAppConfigMiddleware } from "./appConfigMiddleware.ts";
 import { pageJwtMiddleware } from "./pageJwtMiddleware.ts";
 
 describe("pageJwtMiddleware", () => {
-  test("returns 401 when JWT cookie is missing", async () => {
+  test("redirects to login when JWT cookie is missing", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
@@ -18,10 +18,11 @@ describe("pageJwtMiddleware", () => {
 
     const response = await app.fetch(new Request("http://localhost/"));
 
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(302);
+    expect(response.headers.get("Location")).toBe("/login");
   });
 
-  test("returns 401 when JWT cookie is invalid", async () => {
+  test("redirects to login when JWT cookie is invalid", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
@@ -38,7 +39,8 @@ describe("pageJwtMiddleware", () => {
       }),
     );
 
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(302);
+    expect(response.headers.get("Location")).toBe("/login");
   });
 
   test("calls next when JWT cookie is valid", async () => {
