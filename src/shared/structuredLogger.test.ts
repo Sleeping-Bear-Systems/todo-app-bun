@@ -4,23 +4,23 @@ import { transports } from "winston";
 import type { AppConfig } from "./appConfig.ts";
 import { createStructuredLogger } from "./structuredLogger.ts";
 
-function createAppConfig(overrides?: Partial<AppConfig>): AppConfig {
-  return {
-    port: 3000,
-    environment: "test",
-    jwt: {
-      secret: "12345678901234567890123456789012",
-      cookieName: "todo-app",
-    },
-    seq: {
-      apiKey: undefined,
-      url: undefined,
-    },
-    ...overrides,
-  };
-}
+describe("createStructuredLogger", () => {
+  function createAppConfig(overrides?: Partial<AppConfig>): AppConfig {
+    return {
+      port: 3000,
+      environment: "test",
+      jwt: {
+        secret: "12345678901234567890123456789012",
+        cookieName: "todo-app",
+      },
+      seq: {
+        apiKey: undefined,
+        url: undefined,
+      },
+      ...overrides,
+    };
+  }
 
-describe("createLogger", () => {
   test("creates an info logger with console transport and application metadata", () => {
     const logger = createStructuredLogger(
       createAppConfig({ environment: "production" }),
