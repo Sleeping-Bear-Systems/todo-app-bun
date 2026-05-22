@@ -12,6 +12,7 @@ describe("createAppConfig", () => {
       port: 3000,
       environment: "development",
       jwt: { secret: validJwtSecret, cookieName: "todo-app" },
+      seq: { apiKey: undefined, url: undefined },
     });
   });
 
@@ -40,7 +41,34 @@ describe("createAppConfig", () => {
       port: 8080,
       environment: "development",
       jwt: { secret: validJwtSecret, cookieName: "todo-app" },
+      seq: { apiKey: undefined, url: undefined },
     });
+  });
+
+  test("uses undefined seq values when seq env vars are missing", () => {
+    const appConfig = createAppConfig({ JWT_SECRET: validJwtSecret });
+
+    expect(appConfig.seq).toEqual({ apiKey: undefined, url: undefined });
+  });
+
+  test("maps seq env vars when they are provided", () => {
+    const appConfig = createAppConfig({
+      JWT_SECRET: validJwtSecret,
+      SEQ_API_KEY: "test-api-key",
+      SEQ_URL: "https://seq.example.com",
+    });
+
+    expect(appConfig.seq.apiKey).toBe("test-api-key");
+    expect(appConfig.seq.url).toBe("https://seq.example.com");
+  });
+
+  test("rejects an invalid SEQ_URL", () => {
+    expect(() =>
+      createAppConfig({
+        JWT_SECRET: validJwtSecret,
+        SEQ_URL: "not-a-url",
+      }),
+    ).toThrow(ZodError);
   });
 
   test("rejects ports below the valid range", () => {
