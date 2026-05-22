@@ -1,19 +1,21 @@
 import { SeqTransport } from "@datalust/winston-seq";
-import winston from "winston";
+import {
+  createLogger,
+  format,
+  type Logger,
+  type transport,
+  transports,
+} from "winston";
 import type { AppConfig } from "./appConfig.ts";
 
-export function createLogger(appConfig: AppConfig): winston.Logger {
+export function createStructuredLogger(appConfig: AppConfig): Logger {
   // add console logging
-  const transports: winston.transport[] = [
-    new winston.transports.Console({
-      format: winston.format.simple(),
-    }),
-  ];
+  const combinedTransports: transport[] = [new transports.Console()];
 
   // check Seq configuration
   if (appConfig.seq.apiKey !== undefined && appConfig.seq.url !== undefined) {
     // add Seq logging
-    transports.push(
+    combinedTransports.push(
       new SeqTransport({
         serverUrl: appConfig.seq.url,
         apiKey: appConfig.seq.apiKey,
@@ -26,17 +28,17 @@ export function createLogger(appConfig: AppConfig): winston.Logger {
     );
   }
 
-  return winston.createLogger({
+  return createLogger({
     level: "info",
-    format: winston.format.combine(
+    format: format.combine(
       // This is required to get errors to log with stack traces. See https://github.com/winstonjs/winston/issues/1498
-      winston.format.errors({ stack: true }),
-      winston.format.json(),
+      format.errors({ stack: true }),
+      format.json(),
     ),
     defaultMeta: {
       application: "todo-app",
       environment: appConfig.environment,
     },
-    transports,
+    transports: combinedTransports,
   });
 }

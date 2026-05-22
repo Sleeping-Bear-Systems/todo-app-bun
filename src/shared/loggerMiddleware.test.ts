@@ -1,13 +1,13 @@
 import { describe, expect, test } from "bun:test";
 import { Hono } from "hono";
-import winston from "winston";
+import { createLogger, transports } from "winston";
 import type { AppVariables } from "./appVariables.ts";
 import { createLoggerMiddleware } from "./loggerMiddleware.ts";
 
 describe("createLoggerMiddleware", () => {
   test("injects the logger into the request context", async () => {
-    const logger = winston.createLogger({
-      transports: [new winston.transports.Console({ silent: true })],
+    const logger = createLogger({
+      transports: [new transports.Console({ silent: true })],
     });
 
     const app = new Hono<{ Variables: AppVariables }>()
@@ -24,8 +24,8 @@ describe("createLoggerMiddleware", () => {
   });
 
   test("calls next so the route handler is reached", async () => {
-    const logger = winston.createLogger({
-      transports: [new winston.transports.Console({ silent: true })],
+    const logger = createLogger({
+      transports: [new transports.Console({ silent: true })],
     });
     let handlerReached = false;
 

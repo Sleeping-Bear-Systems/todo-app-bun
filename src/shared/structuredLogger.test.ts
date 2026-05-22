@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { SeqTransport } from "@datalust/winston-seq";
-import winston from "winston";
+import { transports } from "winston";
 import type { AppConfig } from "./appConfig.ts";
-import { createLogger } from "./logger.ts";
+import { createStructuredLogger } from "./structuredLogger.ts";
 
 function createAppConfig(overrides?: Partial<AppConfig>): AppConfig {
   return {
@@ -22,7 +22,9 @@ function createAppConfig(overrides?: Partial<AppConfig>): AppConfig {
 
 describe("createLogger", () => {
   test("creates an info logger with console transport and application metadata", () => {
-    const logger = createLogger(createAppConfig({ environment: "production" }));
+    const logger = createStructuredLogger(
+      createAppConfig({ environment: "production" }),
+    );
 
     expect(logger.level).toBe("info");
     expect(logger.defaultMeta).toEqual({
@@ -30,11 +32,11 @@ describe("createLogger", () => {
       environment: "production",
     });
     expect(logger.transports).toHaveLength(1);
-    expect(logger.transports[0]).toBeInstanceOf(winston.transports.Console);
+    expect(logger.transports[0]).toBeInstanceOf(transports.Console);
   });
 
   test("does not add a Seq transport when the Seq api key is missing", () => {
-    const logger = createLogger(
+    const logger = createStructuredLogger(
       createAppConfig({
         seq: {
           apiKey: undefined,
@@ -44,11 +46,11 @@ describe("createLogger", () => {
     );
 
     expect(logger.transports).toHaveLength(1);
-    expect(logger.transports[0]).toBeInstanceOf(winston.transports.Console);
+    expect(logger.transports[0]).toBeInstanceOf(transports.Console);
   });
 
   test("does not add a Seq transport when the Seq url is missing", () => {
-    const logger = createLogger(
+    const logger = createStructuredLogger(
       createAppConfig({
         seq: {
           apiKey: "test-api-key",
@@ -58,11 +60,11 @@ describe("createLogger", () => {
     );
 
     expect(logger.transports).toHaveLength(1);
-    expect(logger.transports[0]).toBeInstanceOf(winston.transports.Console);
+    expect(logger.transports[0]).toBeInstanceOf(transports.Console);
   });
 
   test("adds a Seq transport when the Seq configuration is complete", () => {
-    const logger = createLogger(
+    const logger = createStructuredLogger(
       createAppConfig({
         seq: {
           apiKey: "test-api-key",
@@ -72,7 +74,7 @@ describe("createLogger", () => {
     );
 
     expect(logger.transports).toHaveLength(2);
-    expect(logger.transports[0]).toBeInstanceOf(winston.transports.Console);
+    expect(logger.transports[0]).toBeInstanceOf(transports.Console);
     expect(logger.transports[1]).toBeInstanceOf(SeqTransport);
   });
 });
