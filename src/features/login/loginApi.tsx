@@ -23,8 +23,8 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
     }
   }),
   async (c) => {
-    const appConfig = c.get("appConfig");
-    const now = c.get("clock").now();
+    const appConfig = c.var.appConfig;
+    const now = c.var.clock.now();
     const { username, password } = c.req.valid("form");
     const user = getUserByUsername(username);
     if (user === undefined) {

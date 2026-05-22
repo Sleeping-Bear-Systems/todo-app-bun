@@ -12,7 +12,7 @@ describe("createClockMiddleware", () => {
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createClockMiddleware(clock))
       .get("/", (c) => {
-        const injected = c.get("clock");
+        const injected = c.var.clock;
         return c.json({ now: injected.now().toISOString() }, 200);
       });
 

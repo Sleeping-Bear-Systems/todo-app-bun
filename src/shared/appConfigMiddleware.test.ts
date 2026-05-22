@@ -14,7 +14,7 @@ describe("createAppConfigMiddleware", () => {
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
       .get("/", (c) => {
-        const injected = c.get("appConfig");
+        const injected = c.var.appConfig;
         return c.json(injected, 200);
       });
 
