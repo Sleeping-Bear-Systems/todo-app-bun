@@ -35,6 +35,7 @@ export function createLogger(appConfig: AppConfig): winston.Logger {
     ),
     defaultMeta: {
       application: "todo-app",
+      environment: appConfig.environment,
     },
     transports,
   });
