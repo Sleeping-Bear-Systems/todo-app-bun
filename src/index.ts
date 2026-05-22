@@ -12,6 +12,7 @@ import { createAppConfigMiddleware } from "@shared/appConfigMiddleware.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { systemClock } from "@shared/clock.ts";
 import { createClockMiddleware } from "@shared/clockMiddleware.ts";
+import { createLogger } from "@shared/logger";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { addUser } from "@shared/user.ts";
 import { randomUUIDv7 } from "bun";
@@ -27,6 +28,9 @@ import { secureHeaders } from "hono/secure-headers";
 await addUser("admin", "password1234");
 
 const appConfig = createAppConfig(Bun.env);
+
+const logger = createLogger(appConfig);
+logger.info("🚀 Starting application")
 
 const app = new Hono<{ Variables: AppVariables }>()
   // middlewares
