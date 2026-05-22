@@ -5,5 +5,5 @@ export const apiRoutes = {
   LOGIN: "/api/login",
   LOGOUT: "/api/logout",
   PING: "/api/ping",
-  CREATE_TODO: "/api/create-todo",
+  ADD_TODO: "/api/add-todo",
 } as const;

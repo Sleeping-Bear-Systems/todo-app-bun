@@ -4,30 +4,30 @@ import { createAppConfigMiddleware } from "@shared/appConfigMiddleware.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
-import { createToDoPage } from "./createToDoPage";
+import { addToDoPage } from "./addToDoPage.tsx";
 
-describe("createToDoPage", () => {
+describe("addToDoPage", () => {
   test("returns 401 when JWT cookie is missing", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
-      .route("/", createToDoPage);
+      .route("/", addToDoPage);
 
     const response = await app.fetch(new Request("http://localhost/"));
 
     expect(response.status).toBe(401);
   });
 
-  test("renders the create todo page HTML when JWT cookie is valid", async () => {
+  test("renders the add todo page HTML when JWT cookie is valid", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
     const token = await sign({ sub: "admin" }, appConfig.jwt.secret, "HS256");
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
-      .route("/", createToDoPage);
+      .route("/", addToDoPage);
 
     const response = await app.fetch(
       new Request("http://localhost/", {
@@ -39,6 +39,6 @@ describe("createToDoPage", () => {
     const html = await response.text();
 
     expect(response.status).toBe(200);
-    expect(html).toContain("Create ToDo");
+    expect(html).toContain("Add ToDo");
   });
 });
