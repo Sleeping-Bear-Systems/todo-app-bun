@@ -5,5 +5,5 @@ export const pageRoutes = {
   HOME: "/",
   ABOUT: "/about",
   LOGIN: "/login",
-  CREATE_TODO: "/create-todo",
+  ADD_TODO: "/add-todo",
 } as const;
