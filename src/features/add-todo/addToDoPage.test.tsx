@@ -29,7 +29,7 @@ describe("addToDoPage", () => {
       JWT_SECRET: "12345678901234567890123456789012",
     });
     const token = await sign(
-      { sub: "admin", preferred_username: "admin" },
+      { sub: "1234", preferred_username: "admin" },
       appConfig.jwt.secret,
       "HS256",
     );
