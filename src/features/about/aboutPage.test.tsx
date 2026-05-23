@@ -51,12 +51,24 @@ describe("aboutPage", () => {
     const html = await response.text();
 
     expect(html).toContain("Bun:");
-    expect(html).toContain("https://bun.com");
+    expect(html).toContain('href="https://bun.com/"');
+    expect(html).toContain(
+      'href="https://bun.com/" target="_blank" rel="noopener noreferrer"',
+    );
     expect(html).toContain("Hono:");
-    expect(html).toContain("https://hono.dev");
+    expect(html).toContain('href="https://hono.dev"');
+    expect(html).toContain(
+      'href="https://hono.dev" target="_blank" rel="noopener noreferrer"',
+    );
     expect(html).toContain("Datastar:");
-    expect(html).toContain("https://data-star.dev");
+    expect(html).toContain('href="https://data-star.dev"');
+    expect(html).toContain(
+      'href="https://data-star.dev" target="_blank" rel="noopener noreferrer"',
+    );
     expect(html).toContain("Biome:");
-    expect(html).toContain("https://biomejs.dev");
+    expect(html).toContain('href="https://biomejs.dev"');
+    expect(html).toContain(
+      'href="https://biomejs.dev" target="_blank" rel="noopener noreferrer"',
+    );
   });
 });

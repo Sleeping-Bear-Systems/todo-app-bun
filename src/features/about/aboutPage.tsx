@@ -11,16 +11,44 @@ export const aboutPage = new Hono<{ Variables: AppVariables }>().get(
         <h2>Powered By</h2>
         <ul>
           <li>
-            Bun: <a href="https://bun.com/">https://bun.com</a>
+            Bun:{" "}
+            <a
+              href="https://bun.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://bun.com
+            </a>
           </li>
           <li>
-            Hono: <a href="https://hono.dev">https://hono.dev</a>
+            Hono:{" "}
+            <a
+              href="https://hono.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://hono.dev
+            </a>
           </li>
           <li>
-            Datastar: <a href="https://data-star.dev">https://data-star.dev</a>
+            Datastar:{" "}
+            <a
+              href="https://data-star.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://data-star.dev
+            </a>
           </li>
           <li>
-            Biome: <a href="https://biomejs.dev">https://biomejs.dev</a>
+            Biome:{" "}
+            <a
+              href="https://biomejs.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://biomejs.dev
+            </a>
           </li>
         </ul>
       </Page>,
