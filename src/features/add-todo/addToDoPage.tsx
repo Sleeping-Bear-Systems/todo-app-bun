@@ -7,7 +7,12 @@ export const addToDoPage = new Hono<{ Variables: AppVariables }>()
   .use("/", pageJwtMiddleware)
   .get("/", (c) => {
     return c.html(
-      <Page>
+      <Page
+        type="authenticated"
+        currentPath={c.req.path}
+        userId="1234"
+        username="test"
+      >
         <h1>Add ToDo</h1>
       </Page>,
     );

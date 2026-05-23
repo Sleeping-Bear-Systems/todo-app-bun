@@ -43,6 +43,8 @@ describe("homePage", () => {
     expect(response.status).toBe(200);
     expect(html).toContain("<title>ToDo</title>");
     expect(html).toContain("<h1>Home</h1>");
+    expect(html).not.toContain('<a href="/">Home</a>');
     expect(html).toContain('<a href="/about">About</a>');
+    expect(html).toContain('<form action="/api/logout" method="post">');
   });
 });

@@ -1,14 +1,20 @@
 import { describe, expect, test } from "bun:test";
 import { apiRoutes } from "@shared/apiRoutes.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
+import { pageRoutes } from "@shared/pageRoutes.ts";
 import { Hono } from "hono";
 import { loginPage } from "./loginPage.tsx";
 
 describe("loginPage", () => {
   test("renders the login page HTML", async () => {
-    const app = new Hono<{ Variables: AppVariables }>().route("/", loginPage);
+    const app = new Hono<{ Variables: AppVariables }>().route(
+      pageRoutes.LOGIN,
+      loginPage,
+    );
 
-    const response = await app.fetch(new Request("http://localhost/"));
+    const response = await app.fetch(
+      new Request(`http://localhost${pageRoutes.LOGIN}`),
+    );
     const html = await response.text();
 
     expect(response.status).toBe(200);
@@ -25,6 +31,8 @@ describe("loginPage", () => {
     );
     expect(html).toContain('autocomplete="current-password"');
     expect(html).toContain('<button type="submit">Login</button>');
+    expect(html).not.toContain('<a href="/login">Login</a>');
+    expect(html).toContain('<a href="/about">About</a>');
     expect(html).toContain(apiRoutes.LOGIN);
     expect(html).toContain("contentType: &#39;form&#39;");
   });

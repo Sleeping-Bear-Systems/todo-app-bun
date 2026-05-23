@@ -14,9 +14,11 @@ describe("addToDoPage", () => {
     });
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
-      .route("/", addToDoPage);
+      .route(pageRoutes.ADD_TODO, addToDoPage);
 
-    const response = await app.fetch(new Request("http://localhost/"));
+    const response = await app.fetch(
+      new Request(`http://localhost${pageRoutes.ADD_TODO}`),
+    );
 
     expect(response.status).toBe(302);
     expect(response.headers.get("Location")).toBe(pageRoutes.LOGIN);
@@ -29,10 +31,10 @@ describe("addToDoPage", () => {
     const token = await sign({ sub: "admin" }, appConfig.jwt.secret, "HS256");
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
-      .route("/", addToDoPage);
+      .route(pageRoutes.ADD_TODO, addToDoPage);
 
     const response = await app.fetch(
-      new Request("http://localhost/", {
+      new Request(`http://localhost${pageRoutes.ADD_TODO}`, {
         headers: {
           Cookie: `${appConfig.jwt.cookieName}=${token}`,
         },
@@ -41,6 +43,10 @@ describe("addToDoPage", () => {
     const html = await response.text();
 
     expect(response.status).toBe(200);
-    expect(html).toContain("Add ToDo");
+    expect(html).toContain("<title>ToDo</title>");
+    expect(html).toContain("<h1>Add ToDo</h1>");
+    expect(html).toContain('<a href="/">Home</a>');
+    expect(html).toContain('<a href="/about">About</a>');
+    expect(html).toContain('<form action="/api/logout" method="post">');
   });
 });

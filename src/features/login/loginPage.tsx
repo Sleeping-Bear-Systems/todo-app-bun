@@ -7,7 +7,7 @@ export const loginPage = new Hono<{ Variables: AppVariables }>().get(
   "/",
   (c) => {
     return c.html(
-      <Page>
+      <Page type="unauthenticated" currentPath={c.req.path}>
         <h1>Login</h1>
         <form
           id="login"
