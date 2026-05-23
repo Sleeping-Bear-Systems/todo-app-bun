@@ -37,3 +37,13 @@ nav form {
   padding: 0;
   text-decoration: underline;
 }
+
+.powered-by-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.powered-by-link img {
+  flex-shrink: 0;
+}

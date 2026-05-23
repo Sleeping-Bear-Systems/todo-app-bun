@@ -55,20 +55,25 @@ describe("aboutPage", () => {
     expect(html).toContain(
       'href="https://bun.com/" target="_blank" rel="noopener noreferrer"',
     );
+    expect(html).toContain('class="powered-by-link"');
+    expect(html).toContain('src="/images/bun.svg"');
     expect(html).toContain("Hono:");
     expect(html).toContain('href="https://hono.dev"');
     expect(html).toContain(
       'href="https://hono.dev" target="_blank" rel="noopener noreferrer"',
     );
+    expect(html).toContain('src="/images/hono.svg"');
     expect(html).toContain("Datastar:");
     expect(html).toContain('href="https://data-star.dev"');
     expect(html).toContain(
       'href="https://data-star.dev" target="_blank" rel="noopener noreferrer"',
     );
+    expect(html).toContain('src="/images/datastar.svg"');
     expect(html).toContain("Biome:");
     expect(html).toContain('href="https://biomejs.dev"');
     expect(html).toContain(
       'href="https://biomejs.dev" target="_blank" rel="noopener noreferrer"',
     );
+    expect(html).toContain('src="/images/biome.svg"');
   });
 });
