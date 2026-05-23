@@ -9,28 +9,20 @@ export const aboutPage = new Hono<{ Variables: AppVariables }>().get(
       <Page type="unauthenticated" currentPath={c.req.path}>
         <h1>About</h1>
         <h2>Powered By</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Biome</td>
-              <td>
-                <a href="https://biomejs.dev">https://biomejs.dev</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Hono</td>
-              <td>
-                <a href="https://hono.dev">https://hono.dev</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <ul>
+          <li>
+            Bun: <a href="https://bun.com/">https://bun.com</a>
+          </li>
+          <li>
+            Hono: <a href="https://hono.dev">https://hono.dev</a>
+          </li>
+          <li>
+            Datastar: <a href="https://data-star.dev">https://data-star.dev</a>
+          </li>
+          <li>
+            Biome: <a href="https://biomejs.dev">https://biomejs.dev</a>
+          </li>
+        </ul>
       </Page>,
     );
   },
