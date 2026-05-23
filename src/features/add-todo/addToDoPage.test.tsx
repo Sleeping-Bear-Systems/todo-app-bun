@@ -2,12 +2,13 @@ import { describe, expect, test } from "bun:test";
 import { createAppConfig } from "@shared/appConfig.ts";
 import { createAppConfigMiddleware } from "@shared/appConfigMiddleware.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
+import { pageRoutes } from "@shared/pageRoutes.ts";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { addToDoPage } from "./addToDoPage.tsx";
 
 describe("addToDoPage", () => {
-  test("returns 401 when JWT cookie is missing", async () => {
+  test("redirects to login when JWT cookie is missing", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
@@ -17,7 +18,8 @@ describe("addToDoPage", () => {
 
     const response = await app.fetch(new Request("http://localhost/"));
 
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(302);
+    expect(response.headers.get("Location")).toBe(pageRoutes.LOGIN);
   });
 
   test("renders the add todo page HTML when JWT cookie is valid", async () => {

@@ -5,9 +5,10 @@ import { sign } from "hono/jwt";
 import { createAppConfig } from "./appConfig.ts";
 import { createAppConfigMiddleware } from "./appConfigMiddleware.ts";
 import { pageJwtMiddleware } from "./pageJwtMiddleware.ts";
+import { pageRoutes } from "./pageRoutes.ts";
 
 describe("pageJwtMiddleware", () => {
-  test("returns 401 when JWT cookie is missing", async () => {
+  test("redirects to login when JWT cookie is missing", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
@@ -18,10 +19,11 @@ describe("pageJwtMiddleware", () => {
 
     const response = await app.fetch(new Request("http://localhost/"));
 
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(302);
+    expect(response.headers.get("Location")).toBe(pageRoutes.LOGIN);
   });
 
-  test("returns 401 when JWT cookie is invalid", async () => {
+  test("redirects to login when JWT cookie is invalid", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
@@ -38,7 +40,8 @@ describe("pageJwtMiddleware", () => {
       }),
     );
 
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(302);
+    expect(response.headers.get("Location")).toBe(pageRoutes.LOGIN);
   });
 
   test("calls next when JWT cookie is valid", async () => {
@@ -65,5 +68,28 @@ describe("pageJwtMiddleware", () => {
 
     expect(response.status).toBe(200);
     expect(handlerReached).toBe(true);
+  });
+
+  test("does not redirect when downstream handler throws", async () => {
+    const appConfig = createAppConfig({
+      JWT_SECRET: "12345678901234567890123456789012",
+    });
+    const token = await sign({ sub: "admin" }, appConfig.jwt.secret, "HS256");
+    const app = new Hono<{ Variables: AppVariables }>()
+      .use("*", createAppConfigMiddleware(appConfig))
+      .use("*", pageJwtMiddleware)
+      .get("/", () => {
+        throw new Error("handler failed");
+      });
+
+    const response = await app.fetch(
+      new Request("http://localhost/", {
+        headers: {
+          Cookie: `${appConfig.jwt.cookieName}=${token}`,
+        },
+      }),
+    );
+
+    expect(response.status).toBe(500);
   });
 });
