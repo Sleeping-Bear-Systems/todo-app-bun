@@ -28,7 +28,11 @@ describe("addToDoPage", () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
-    const token = await sign({ sub: "admin" }, appConfig.jwt.secret, "HS256");
+    const token = await sign(
+      { sub: "admin", preferred_username: "admin" },
+      appConfig.jwt.secret,
+      "HS256",
+    );
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
       .route(pageRoutes.ADD_TODO, addToDoPage);
@@ -48,7 +52,7 @@ describe("addToDoPage", () => {
     expect(html).toContain('<a href="/">Home</a>');
     expect(html).not.toContain('<a href="/add-todo">Add</a>');
     expect(html).toContain('<a href="/about">About</a>');
-    expect(html).toContain("<li>test</li>");
+    expect(html).toContain("<li>admin</li>");
     expect(html).toContain('<form action="/api/logout" method="post">');
   });
 });
