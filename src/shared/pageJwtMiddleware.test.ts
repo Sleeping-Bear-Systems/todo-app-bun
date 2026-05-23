@@ -5,6 +5,7 @@ import { sign } from "hono/jwt";
 import { createAppConfig } from "./appConfig.ts";
 import { createAppConfigMiddleware } from "./appConfigMiddleware.ts";
 import { pageJwtMiddleware } from "./pageJwtMiddleware.ts";
+import { pageRoutes } from "./pageRoutes.ts";
 
 describe("pageJwtMiddleware", () => {
   test("redirects to login when JWT cookie is missing", async () => {
@@ -19,7 +20,7 @@ describe("pageJwtMiddleware", () => {
     const response = await app.fetch(new Request("http://localhost/"));
 
     expect(response.status).toBe(302);
-    expect(response.headers.get("Location")).toBe("/login");
+    expect(response.headers.get("Location")).toBe(pageRoutes.LOGIN);
   });
 
   test("redirects to login when JWT cookie is invalid", async () => {
@@ -40,7 +41,7 @@ describe("pageJwtMiddleware", () => {
     );
 
     expect(response.status).toBe(302);
-    expect(response.headers.get("Location")).toBe("/login");
+    expect(response.headers.get("Location")).toBe(pageRoutes.LOGIN);
   });
 
   test("calls next when JWT cookie is valid", async () => {
