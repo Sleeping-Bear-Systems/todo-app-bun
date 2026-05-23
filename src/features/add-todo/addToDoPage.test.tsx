@@ -46,7 +46,9 @@ describe("addToDoPage", () => {
     expect(html).toContain("<title>ToDo</title>");
     expect(html).toContain("<h1>Add ToDo</h1>");
     expect(html).toContain('<a href="/">Home</a>');
+    expect(html).not.toContain('<a href="/add-todo">Add</a>');
     expect(html).toContain('<a href="/about">About</a>');
+    expect(html).toContain("<li>test</li>");
     expect(html).toContain('<form action="/api/logout" method="post">');
   });
 });

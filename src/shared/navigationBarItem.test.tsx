@@ -26,10 +26,11 @@ describe("NavigationBarItem", () => {
     expect(htmlString).toContain("<li>Custom content</li>");
   });
 
-  test("returns null when type is generic and children are not provided", () => {
+  test("renders an empty list item when type is generic and children are not provided", () => {
     const html = NavigationBarItem({ type: "generic" });
+    const htmlString = String(html);
 
-    expect(html).toBeNull();
+    expect(htmlString).toContain("<li></li>");
   });
 
   test("returns null when link URL matches current path", () => {

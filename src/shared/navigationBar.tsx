@@ -9,6 +9,7 @@ export type SharedNavigationBarProps = Readonly<{
 export type AuthenticatedNavigationBarProps = SharedNavigationBarProps &
   Readonly<{
     type: "authenticated";
+    username: string;
   }>;
 
 export type UnauthenticatedNavigationBarProps = SharedNavigationBarProps &
@@ -44,6 +45,9 @@ export function NavigationBar(props: NavigationBarProps) {
               url={pageRoutes.ABOUT}
               currentPath={props.currentPath}
             />
+            <NavigationBarItem type="generic">
+              {props.username}
+            </NavigationBarItem>
             <NavigationBarItem type="generic">
               <form action={apiRoutes.LOGOUT} method="post">
                 <button class="nav-link-button" type="submit">

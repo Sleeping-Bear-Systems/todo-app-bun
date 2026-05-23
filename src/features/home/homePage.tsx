@@ -7,12 +7,7 @@ export const homePage = new Hono<{ Variables: AppVariables }>()
   .use("/", pageJwtMiddleware)
   .get("/", (c) => {
     return c.html(
-      <Page
-        type="authenticated"
-        currentPath={c.req.path}
-        userId="1234"
-        username="test"
-      >
+      <Page type="authenticated" currentPath={c.req.path} username="test">
         <h1>Home</h1>
       </Page>,
     );

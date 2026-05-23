@@ -4,7 +4,6 @@ import { Page } from "./page.tsx";
 const unauthenticatedPageProps = { type: "unauthenticated" } as const;
 const authenticatedPageProps = {
   type: "authenticated",
-  userId: "123",
   username: "test-user",
 } as const;
 
@@ -89,7 +88,9 @@ describe("Page", () => {
     const htmlString = String(html);
 
     expect(htmlString).not.toContain('<a href="/">Home</a>');
+    expect(htmlString).toContain('<a href="/add-todo">Add</a>');
     expect(htmlString).toContain('<a href="/about">About</a>');
+    expect(htmlString).toContain("<li>test-user</li>");
     expect(htmlString).toContain('<form action="/api/logout" method="post">');
     expect(htmlString).toContain(
       '<button class="nav-link-button" type="submit">',

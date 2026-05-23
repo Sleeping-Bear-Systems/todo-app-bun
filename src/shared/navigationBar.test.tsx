@@ -2,16 +2,19 @@ import { describe, expect, test } from "bun:test";
 import { NavigationBar } from "./navigationBar.tsx";
 
 describe("NavigationBar", () => {
-  test("renders authenticated navigation links and logout action", () => {
+  test("renders authenticated navigation links, username, and logout action", () => {
     const html = NavigationBar({
       type: "authenticated",
       currentPath: "/add-todo",
+      username: "test-user",
     });
     const htmlString = String(html);
 
     expect(htmlString).toContain("<nav>");
     expect(htmlString).toContain('<a href="/">Home</a>');
+    expect(htmlString).not.toContain('<a href="/add-todo">Add</a>');
     expect(htmlString).toContain('<a href="/about">About</a>');
+    expect(htmlString).toContain("<li>test-user</li>");
     expect(htmlString).toContain('<form action="/api/logout" method="post">');
     expect(htmlString).toContain(
       '<button class="nav-link-button" type="submit">',
@@ -19,11 +22,17 @@ describe("NavigationBar", () => {
   });
 
   test("hides the authenticated current route link", () => {
-    const html = NavigationBar({ type: "authenticated", currentPath: "/" });
+    const html = NavigationBar({
+      type: "authenticated",
+      currentPath: "/",
+      username: "test-user",
+    });
     const htmlString = String(html);
 
     expect(htmlString).not.toContain('<a href="/">Home</a>');
+    expect(htmlString).toContain('<a href="/add-todo">Add</a>');
     expect(htmlString).toContain('<a href="/about">About</a>');
+    expect(htmlString).toContain("<li>test-user</li>");
     expect(htmlString).toContain('<form action="/api/logout" method="post">');
   });
 

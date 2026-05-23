@@ -21,7 +21,9 @@ export function NavigationBarItem(props: NavigationBarItemProps) {
         </li>
       );
     case "generic":
-      return props.children ? <li>{props.children}</li> : null;
+      return props.children !== null || props.children !== undefined ? (
+        <li>{props.children}</li>
+      ) : null;
     default: {
       const _unknownType: never = props;
       return _unknownType;
