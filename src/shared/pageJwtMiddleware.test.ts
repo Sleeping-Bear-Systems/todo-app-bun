@@ -1,11 +1,32 @@
 import { describe, expect, test } from "bun:test";
 import type { AppVariables } from "@shared/appVariables.ts";
+import {
+  createTodoJwtPayload,
+  type TodoJwtPayload,
+} from "@shared/jwtMiddleware.ts";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { createAppConfig } from "./appConfig.ts";
 import { createAppConfigMiddleware } from "./appConfigMiddleware.ts";
 import { pageJwtMiddleware } from "./pageJwtMiddleware.ts";
 import { pageRoutes } from "./pageRoutes.ts";
+
+const fixedPayloadDate = new Date("2024-01-01T00:00:00.000Z");
+const fixedIatInSeconds = Math.floor(fixedPayloadDate.getTime() / 1000);
+const fixedExpInSeconds = Math.floor(
+  new Date("2100-01-01T00:00:00.000Z").getTime() / 1000,
+);
+
+const createJwtPayload = (
+  overrides: Partial<TodoJwtPayload> = {},
+): TodoJwtPayload => {
+  return {
+    ...createTodoJwtPayload("1234", "admin", "admin", fixedPayloadDate),
+    exp: fixedExpInSeconds,
+    iat: fixedIatInSeconds,
+    ...overrides,
+  };
+};
 
 describe("pageJwtMiddleware", () => {
   test("redirects to login when JWT cookie is missing", async () => {
@@ -48,7 +69,7 @@ describe("pageJwtMiddleware", () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
-    const token = await sign({ sub: "1234" }, appConfig.jwt.secret, "HS256");
+    const token = await sign(createJwtPayload(), appConfig.jwt.secret, "HS256");
     let handlerReached = false;
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
@@ -74,7 +95,7 @@ describe("pageJwtMiddleware", () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
-    const token = await sign({ sub: "1234" }, appConfig.jwt.secret, "HS256");
+    const token = await sign(createJwtPayload(), appConfig.jwt.secret, "HS256");
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
       .use("*", pageJwtMiddleware)

@@ -1,6 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { sseRedirect } from "@shared/datastar.ts";
+import type { TodoJwtPayload } from "@shared/jwtMiddleware";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { getUserByUsername } from "@shared/user.ts";
 import { addDays } from "date-fns";
@@ -37,18 +38,15 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
     if (!isPasswordValid) {
       throw new HTTPException(401, { message: "Invalid credentials" });
     }
-    const token = await sign(
-      {
-        sub: user.id,
-        preferred_username: user.username,
-        role: "admin",
-        iss: "todo-app",
-        exp: Math.floor(addDays(now, 1).getTime() / 1000),
-        iat: Math.floor(now.getTime() / 1000),
-      },
-      appConfig.jwt.secret,
-      "HS256",
-    );
+    const jwtPayload: TodoJwtPayload = {
+      sub: user.id,
+      preferred_username: user.username,
+      role: "admin",
+      iss: "todo-app",
+      exp: Math.floor(addDays(now, 1).getTime() / 1000),
+      iat: Math.floor(now.getTime() / 1000),
+    };
+    const token = await sign(jwtPayload, appConfig.jwt.secret, "HS256");
     setCookie(c, appConfig.jwt.cookieName, token, {
       httpOnly: true,
       sameSite: "Strict",
