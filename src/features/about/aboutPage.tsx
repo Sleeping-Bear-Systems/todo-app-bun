@@ -1,6 +1,7 @@
 import type { AppVariables } from "@shared/appVariables.ts";
 import { Page } from "@shared/page.tsx";
 import { Hono } from "hono";
+import { AboutPageItem } from "./aboutPageItem";
 
 export const aboutPage = new Hono<{ Variables: AppVariables }>().get(
   "/",
@@ -9,28 +10,37 @@ export const aboutPage = new Hono<{ Variables: AppVariables }>().get(
       <Page type="unauthenticated" currentPath={c.req.path}>
         <h1>About</h1>
         <h2>Powered By</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Biome</td>
-              <td>
-                <a href="https://biomejs.dev">https://biomejs.dev</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Hono</td>
-              <td>
-                <a href="https://hono.dev">https://hono.dev</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <ul>
+          <AboutPageItem
+            type="LinkWithIconAboutPageItemProps"
+            label="Bun"
+            url="https://bun.com"
+            imageUrl="/images/bun.svg"
+          />
+          <AboutPageItem
+            type="LinkWithIconAboutPageItemProps"
+            label="Hono"
+            url="https://hono.dev"
+            imageUrl="/images/hono.svg"
+          />
+          <AboutPageItem
+            type="LinkWithIconAboutPageItemProps"
+            label="Datastar"
+            url="https://data-star.dev"
+            imageUrl="/images/datastar.svg"
+          />
+          <AboutPageItem
+            type="LinkWithIconAboutPageItemProps"
+            label="Biome"
+            url="https://biomejs.dev"
+            imageUrl="/images/biome.svg"
+          />
+          <AboutPageItem
+            type="LinkAboutPageItemProps"
+            label="Viconic"
+            url="https://viconic.dev/collections/svg_logos"
+          />
+        </ul>
       </Page>,
     );
   },
