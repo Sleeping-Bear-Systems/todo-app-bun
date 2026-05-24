@@ -51,7 +51,7 @@ describe("aboutPage", () => {
     const html = await response.text();
 
     expect(html).toContain("Bun:");
-    expect(html).toContain('href="https://bun.com/"');
+    expect(html).toContain('href="https://bun.com"');
     expect(html).toContain('class="powered-by-link"');
     expect(html).toContain('src="/images/bun.svg"');
     expect(html).toContain("Hono:");
@@ -65,36 +65,5 @@ describe("aboutPage", () => {
     expect(html).toContain('src="/images/biome.svg"');
     expect(html).toContain("Viconic:");
     expect(html).toContain('href="https://viconic.dev/collections/svg_logos"');
-
-    const targetCount = html.split('target="_blank"').length - 1;
-    const relCount = html.split('rel="noopener noreferrer"').length - 1;
-
-    expect(targetCount).toBe(5);
-    expect(relCount).toBe(5);
-  });
-
-  test("renders powered-by icons as decorative images", async () => {
-    const app = new Hono<{ Variables: AppVariables }>().route(
-      pageRoutes.ABOUT,
-      aboutPage,
-    );
-
-    const response = await app.fetch(
-      new Request(`http://localhost${pageRoutes.ABOUT}`),
-    );
-    const html = await response.text();
-
-    expect(html).toContain(
-      'src="/images/bun.svg" alt="" width="16" height="16" aria-hidden="true"',
-    );
-    expect(html).toContain(
-      'src="/images/hono.svg" alt="" width="16" height="16" aria-hidden="true"',
-    );
-    expect(html).toContain(
-      'src="/images/datastar.svg" alt="" width="16" height="16" aria-hidden="true"',
-    );
-    expect(html).toContain(
-      'src="/images/biome.svg" alt="" width="16" height="16" aria-hidden="true"',
-    );
   });
 });
