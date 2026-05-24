@@ -3,7 +3,7 @@ import type { AppVariables } from "@shared/appVariables.ts";
 import {
   createTodoJwtPayload,
   type TodoJwtPayload,
-} from "@shared/jwtMiddleware.ts";
+} from "@shared/jwtPayload.ts";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { createAppConfig } from "./appConfig.ts";

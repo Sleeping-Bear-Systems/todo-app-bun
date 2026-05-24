@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { addDays } from "date-fns";
-import { createTodoJwtPayload } from "./jwtMiddleware.ts";
+import { createTodoJwtPayload } from "./jwtPayload.ts";
 
 describe("createTodoJwtPayload", () => {
   test("maps user fields and static issuer", () => {
@@ -29,5 +29,14 @@ describe("createTodoJwtPayload", () => {
 
     expect(payload.exp).toBe(Math.floor(addDays(now, 1).getTime() / 1000));
     expect(payload.exp - payload.iat).toBe(24 * 60 * 60);
+  });
+
+  test("floors fractional milliseconds for both iat and exp", () => {
+    const now = new Date("2026-05-24T12:34:56.789Z");
+
+    const payload = createTodoJwtPayload("user-1", "user", "admin", now);
+
+    expect(payload.iat).toBe(Math.floor(now.getTime() / 1000));
+    expect(payload.exp).toBe(Math.floor(addDays(now, 1).getTime() / 1000));
   });
 });

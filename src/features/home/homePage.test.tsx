@@ -5,7 +5,7 @@ import type { AppVariables } from "@shared/appVariables.ts";
 import {
   createTodoJwtPayload,
   type TodoJwtPayload,
-} from "@shared/jwtMiddleware.ts";
+} from "@shared/jwtPayload.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
