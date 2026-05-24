@@ -82,6 +82,17 @@ export const aboutPage = new Hono<{ Variables: AppVariables }>().get(
               https://biomejs.dev
             </a>
           </li>
+          <li>
+            Viconic:{" "}
+            <a
+              class="powered-by-link"
+              href="https://viconic.dev/collections/svg_logos"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://viconic.dev/collections/svg_logos
+            </a>
+          </li>
         </ul>
       </Page>,
     );
