@@ -1,5 +1,5 @@
 import type { AppVariables } from "@shared/appVariables.ts";
-import { parseJwtPayload } from "@shared/jwtPayload";
+import { parseJwtPayload } from "@shared/jwtPayload.ts";
 import { Page } from "@shared/page.tsx";
 import { pageJwtMiddleware } from "@shared/pageJwtMiddleware.ts";
 import { Hono } from "hono";
