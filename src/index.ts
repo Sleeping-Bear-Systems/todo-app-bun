@@ -12,7 +12,7 @@ import {
   createAuthenticatedPageRoutes,
   createPageRoutes,
 } from "@shared/pageRoutes.ts";
-import { pageRoutes } from "@shared/routes";
+import { pageRoutes } from "@shared/routes.ts";
 import { createStructuredLogger } from "@shared/structuredLogger.ts";
 import { addUser } from "@shared/user.ts";
 import { randomUUIDv7 } from "bun";
