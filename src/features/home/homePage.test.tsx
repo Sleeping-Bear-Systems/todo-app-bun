@@ -4,8 +4,8 @@ import { createAppConfigMiddleware } from "@shared/appConfigMiddleware.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import {
   createTodoJwtPayload,
-  type TodoJwtPayload,
-} from "@shared/jwtPayload.ts";
+  type JwtPayload,
+} from "@shared/pageJwtMiddleware.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
@@ -17,7 +17,7 @@ const fixedExpInSeconds = Math.floor(
   new Date("2100-01-01T00:00:00.000Z").getTime() / 1000,
 );
 
-const createJwtPayload = (): TodoJwtPayload => {
+const createJwtPayload = (): JwtPayload => {
   return {
     ...createTodoJwtPayload("1234", "admin", "admin", fixedPayloadDate),
     exp: fixedExpInSeconds,

@@ -1,14 +1,15 @@
 import { describe, expect, test } from "bun:test";
-import type { AppVariables } from "@shared/appVariables.ts";
-import {
-  createTodoJwtPayload,
-  type TodoJwtPayload,
-} from "@shared/jwtPayload.ts";
+import { addDays } from "date-fns";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { createAppConfig } from "./appConfig.ts";
 import { createAppConfigMiddleware } from "./appConfigMiddleware.ts";
-import { pageJwtMiddleware } from "./pageJwtMiddleware.ts";
+import type { AppVariables } from "./appVariables.ts";
+import {
+  createTodoJwtPayload,
+  type JwtPayload,
+  pageJwtMiddleware,
+} from "./pageJwtMiddleware.ts";
 import { pageRoutes } from "./pageRoutes.ts";
 
 const fixedPayloadDate = new Date("2024-01-01T00:00:00.000Z");
@@ -17,9 +18,7 @@ const fixedExpInSeconds = Math.floor(
   new Date("2100-01-01T00:00:00.000Z").getTime() / 1000,
 );
 
-const createJwtPayload = (
-  overrides: Partial<TodoJwtPayload> = {},
-): TodoJwtPayload => {
+const createJwtPayload = (overrides: Partial<JwtPayload> = {}): JwtPayload => {
   return {
     ...createTodoJwtPayload("1234", "admin", "admin", fixedPayloadDate),
     exp: fixedExpInSeconds,
@@ -112,5 +111,44 @@ describe("pageJwtMiddleware", () => {
     );
 
     expect(response.status).toBe(500);
+  });
+});
+
+describe("createTodoJwtPayload", () => {
+  test("maps user fields and static issuer", () => {
+    const now = new Date("2026-05-24T12:00:00.000Z");
+
+    const payload = createTodoJwtPayload("user-123", "admin", "editor", now);
+
+    expect(payload.sub).toBe("user-123");
+    expect(payload.preferred_username).toBe("admin");
+    expect(payload.role).toBe("editor");
+    expect(payload.iss).toBe("todo-app");
+  });
+
+  test("sets iat to current time in seconds", () => {
+    const now = new Date("2026-05-24T12:34:56.000Z");
+
+    const payload = createTodoJwtPayload("user-1", "user", "admin", now);
+
+    expect(payload.iat).toBe(Math.floor(now.getTime() / 1000));
+  });
+
+  test("sets exp to one day after current time in seconds", () => {
+    const now = new Date("2026-05-24T12:34:56.000Z");
+
+    const payload = createTodoJwtPayload("user-1", "user", "admin", now);
+
+    expect(payload.exp).toBe(Math.floor(addDays(now, 1).getTime() / 1000));
+    expect(payload.exp - payload.iat).toBe(24 * 60 * 60);
+  });
+
+  test("floors fractional milliseconds for both iat and exp", () => {
+    const now = new Date("2026-05-24T12:34:56.789Z");
+
+    const payload = createTodoJwtPayload("user-1", "user", "admin", now);
+
+    expect(payload.iat).toBe(Math.floor(now.getTime() / 1000));
+    expect(payload.exp).toBe(Math.floor(addDays(now, 1).getTime() / 1000));
   });
 });
