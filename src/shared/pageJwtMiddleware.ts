@@ -18,8 +18,7 @@ export const pageJwtMiddleware = createMiddleware<{
     await verifyJwt(c, async () => {});
     const validatedJwtPayload = jwtPayloadSchema.parse(c.var.jwtPayload);
     c.set("validatedJwtPayload", validatedJwtPayload);
-  } catch (e) {
-    console.log(e);
+  } catch {
     return c.redirect(pageRoutes.LOGIN);
   }
 
