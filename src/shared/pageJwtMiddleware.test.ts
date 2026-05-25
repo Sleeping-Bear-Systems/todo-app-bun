@@ -45,6 +45,28 @@ describe("pageJwtMiddleware", () => {
     expect(response.headers.get("Location")).toBe(pageRoutes.LOGIN);
   });
 
+  test("redirects to login when JWT payload is missing required claims", async () => {
+    const appConfig = createAppConfig({
+      JWT_SECRET: "12345678901234567890123456789012",
+    });
+    const token = await sign({ sub: "1234" }, appConfig.jwt.secret, "HS256");
+    const app = new Hono<{ Variables: AppVariables }>()
+      .use("*", createAppConfigMiddleware(appConfig))
+      .use("*", pageJwtMiddleware)
+      .get("/", (c) => c.text("ok", 200));
+
+    const response = await app.fetch(
+      new Request("http://localhost/", {
+        headers: {
+          Cookie: `${appConfig.jwt.cookieName}=${token}`,
+        },
+      }),
+    );
+
+    expect(response.status).toBe(302);
+    expect(response.headers.get("Location")).toBe(pageRoutes.LOGIN);
+  });
+
   test("calls next when JWT cookie is valid", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
