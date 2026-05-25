@@ -1,6 +1,5 @@
-import { apiRoutes } from "./apiRoutes.ts";
 import { NavigationBarItem } from "./navigationBarItem.tsx";
-import { pageRoutes } from "./pageRoutes.ts";
+import { apiRoutes, pageRoutes } from "./routes.ts";
 
 export type SharedNavigationBarProps = Readonly<{
   currentPath: string;
@@ -66,12 +65,6 @@ export function NavigationBar(props: NavigationBarProps) {
               type="link"
               label="Login"
               url={pageRoutes.LOGIN}
-              currentPath={props.currentPath}
-            />
-            <NavigationBarItem
-              type="link"
-              label="About"
-              url={pageRoutes.ABOUT}
               currentPath={props.currentPath}
             />
           </ul>
