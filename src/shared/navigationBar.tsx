@@ -67,12 +67,6 @@ export function NavigationBar(props: NavigationBarProps) {
               url={pageRoutes.LOGIN}
               currentPath={props.currentPath}
             />
-            <NavigationBarItem
-              type="link"
-              label="About"
-              url={pageRoutes.ABOUT}
-              currentPath={props.currentPath}
-            />
           </ul>
         </nav>
       );

@@ -1,3 +1,4 @@
+import { aboutPage } from "@features/about/aboutPage";
 import { addToDoPage } from "@features/add-todo/addToDoPage.tsx";
 import { homePage } from "@features/home/homePage.tsx";
 import { loginPage } from "@features/login/loginPage.tsx";
@@ -25,6 +26,7 @@ export function createAuthenticatedPageRoutes(jwt: MiddlewareHandler) {
       await next();
       return;
     })
+    .route("/auth/about", aboutPage)
     .route("/auth/home", homePage)
     .route("/auth/add-todo", addToDoPage);
 }
