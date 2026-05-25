@@ -27,7 +27,14 @@ describe("homePage", () => {
       JWT_SECRET: "12345678901234567890123456789012",
     });
     const token = await sign(
-      { sub: "1234", preferred_username: "admin" },
+      {
+        sub: "1234",
+        preferred_username: "admin",
+        role: "admin",
+        iss: "todo-app",
+        exp: 2000000000,
+        iat: 1700000000,
+      },
       appConfig.jwt.secret,
       "HS256",
     );

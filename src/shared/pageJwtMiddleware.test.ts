@@ -48,7 +48,18 @@ describe("pageJwtMiddleware", () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
-    const token = await sign({ sub: "1234" }, appConfig.jwt.secret, "HS256");
+    const token = await sign(
+      {
+        sub: "1234",
+        preferred_username: "admin",
+        role: "admin",
+        iss: "todo-app",
+        exp: 2000000000,
+        iat: 1700000000,
+      },
+      appConfig.jwt.secret,
+      "HS256",
+    );
     let handlerReached = false;
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
@@ -74,7 +85,18 @@ describe("pageJwtMiddleware", () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
-    const token = await sign({ sub: "1234" }, appConfig.jwt.secret, "HS256");
+    const token = await sign(
+      {
+        sub: "1234",
+        preferred_username: "admin",
+        role: "admin",
+        iss: "todo-app",
+        exp: 2000000000,
+        iat: 1700000000,
+      },
+      appConfig.jwt.secret,
+      "HS256",
+    );
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
       .use("*", pageJwtMiddleware)
