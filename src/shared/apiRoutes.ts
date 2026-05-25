@@ -8,6 +8,7 @@ import type {
 } from "@shared/appVariables.ts";
 import { jwtPayloadSchema } from "@shared/authentication.ts";
 import { Hono, type MiddlewareHandler } from "hono";
+import { HTTPException } from "hono/http-exception";
 
 export function createAuthenticatedApiRoutes(jwt: MiddlewareHandler) {
   return new Hono<{
@@ -15,8 +16,11 @@ export function createAuthenticatedApiRoutes(jwt: MiddlewareHandler) {
   }>()
     .use("/auth/*", async (c, next) => {
       await jwt(c, async () => {});
-      const validatedJwtPayload = jwtPayloadSchema.parse(c.var.jwtPayload);
-      c.set("validatedJwtPayload", validatedJwtPayload);
+      const result = jwtPayloadSchema.safeParse(c.var.jwtPayload);
+      if (!result.success) {
+        throw new HTTPException(401, { message: "Invalid token" });
+      }
+      c.set("validatedJwtPayload", result.data);
       await next();
     })
     .route("/auth/add-todo", addToDoApi);
