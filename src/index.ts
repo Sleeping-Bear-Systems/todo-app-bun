@@ -1,12 +1,22 @@
+import {
+  createApiRoutes,
+  createAuthenticatedApiRoutes,
+} from "@shared/apiRoutes.ts";
 import { createAppConfig } from "@shared/appConfig.ts";
 import { createAppConfigMiddleware } from "@shared/appConfigMiddleware.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { systemClock } from "@shared/clock.ts";
 import { createClockMiddleware } from "@shared/clockMiddleware.ts";
 import { createLoggerMiddleware } from "@shared/loggerMiddleware.ts";
+import {
+  createAuthenticatedPageRoutes,
+  createPageRoutes,
+} from "@shared/pageRoutes.ts";
+import { pageRoutes } from "@shared/routes";
 import { createStructuredLogger } from "@shared/structuredLogger.ts";
 import { addUser } from "@shared/user.ts";
 import { randomUUIDv7 } from "bun";
+import { roundToNearestHours } from "date-fns";
 import { type Context, Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
@@ -14,14 +24,6 @@ import { csrf } from "hono/csrf";
 import { jwt } from "hono/jwt";
 import { requestId } from "hono/request-id";
 import { secureHeaders } from "hono/secure-headers";
-import {
-  createApiRoutes,
-  createAuthenticatedApiRoutes,
-} from "./shared/apiRoutes.ts";
-import {
-  createAuthenticatedPageRoutes,
-  createPageRoutes,
-} from "./shared/pageRoutes.ts";
 
 // temporary user
 // will be removed when IDP is hooked up
@@ -60,7 +62,7 @@ const app = new Hono<{ Variables: AppVariables }>()
   .route("/api", createAuthenticatedApiRoutes(jwtMiddleware))
   // Page routes
   .get("/", (c) => {
-    return c.redirect("/auth/home");
+    return c.redirect(pageRoutes.HOME);
   })
   .route("/", createPageRoutes())
   .route("/", createAuthenticatedPageRoutes(jwtMiddleware));
