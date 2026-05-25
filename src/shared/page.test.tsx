@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { Page } from "./page.tsx";
+import { apiRoutes, pageRoutes } from "./routes.ts";
 
 const unauthenticatedPageProps = { type: "unauthenticated" } as const;
 const authenticatedPageProps = {
@@ -69,29 +70,31 @@ describe("Page", () => {
   test("hides current unauthenticated route from navigation", () => {
     const html = Page({
       ...unauthenticatedPageProps,
-      currentPath: "/about",
+      currentPath: pageRoutes.ABOUT,
       children: null,
     });
     const htmlString = String(html);
 
-    expect(htmlString).toContain('<a href="/login">Login</a>');
-    expect(htmlString).not.toContain('<a href="/about">About</a>');
+    expect(htmlString).toContain(`<a href="${pageRoutes.LOGIN}">Login</a>`);
+    expect(htmlString).not.toContain(`<a href="${pageRoutes.ABOUT}">About</a>`);
     expect(htmlString).not.toContain("Logout");
   });
 
   test("hides current authenticated route from navigation", () => {
     const html = Page({
       ...authenticatedPageProps,
-      currentPath: "/",
+      currentPath: pageRoutes.HOME,
       children: null,
     });
     const htmlString = String(html);
 
-    expect(htmlString).not.toContain('<a href="/">Home</a>');
-    expect(htmlString).toContain('<a href="/add-todo">Add</a>');
-    expect(htmlString).toContain('<a href="/about">About</a>');
+    expect(htmlString).not.toContain(`<a href="${pageRoutes.HOME}">Home</a>`);
+    expect(htmlString).toContain(`<a href="${pageRoutes.ADD_TODO}">Add</a>`);
+    expect(htmlString).toContain(`<a href="${pageRoutes.ABOUT}">About</a>`);
     expect(htmlString).toContain("<li>test-user</li>");
-    expect(htmlString).toContain('<form action="/api/logout" method="post">');
+    expect(htmlString).toContain(
+      `<form action="${apiRoutes.LOGOUT}" method="post">`,
+    );
     expect(htmlString).toContain(
       '<button class="nav-link-button" type="submit">',
     );

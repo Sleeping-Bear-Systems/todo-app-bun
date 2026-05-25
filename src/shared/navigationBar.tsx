@@ -1,6 +1,5 @@
-import { apiRoutes } from "./apiRoutes.ts";
 import { NavigationBarItem } from "./navigationBarItem.tsx";
-import { pageRoutes } from "./pageRoutes.ts";
+import { apiRoutes, pageRoutes } from "./routes.ts";
 
 export type SharedNavigationBarProps = Readonly<{
   currentPath: string;

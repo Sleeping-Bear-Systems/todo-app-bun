@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import type { AppVariables } from "@shared/appVariables.ts";
-import { pageRoutes } from "@shared/pageRoutes.ts";
+import { pageRoutes } from "@shared/routes.ts";
 import { Hono } from "hono";
 import { aboutPage } from "./aboutPage.tsx";
 

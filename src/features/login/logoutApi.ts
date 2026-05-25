@@ -1,5 +1,5 @@
 import type { AppVariables } from "@shared/appVariables.ts";
-import { pageRoutes } from "@shared/pageRoutes.ts";
+import { pageRoutes } from "@shared/routes";
 import { Hono } from "hono";
 import { deleteCookie } from "hono/cookie";
 

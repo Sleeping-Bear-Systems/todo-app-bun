@@ -2,20 +2,25 @@ import { describe, expect, test } from "bun:test";
 import { createAppConfig } from "@shared/appConfig.ts";
 import { createAppConfigMiddleware } from "@shared/appConfigMiddleware.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
-import { pageRoutes } from "@shared/pageRoutes.ts";
+import { apiRoutes, pageRoutes } from "@shared/routes.ts";
 import { createValidTestJwtPayload } from "@shared/testJwt.ts";
 import { Hono } from "hono";
-import { sign } from "hono/jwt";
-import { addToDoPage } from "./addToDoPage.tsx";
+import { jwt, sign } from "hono/jwt";
+import { createAuthenticatedPageRoutes } from "../../shared/pageRoutes.ts";
 
 describe("addToDoPage", () => {
   test("redirects to login when JWT cookie is missing", async () => {
     const appConfig = createAppConfig({
       JWT_SECRET: "12345678901234567890123456789012",
     });
+    const jwtMiddleware = jwt({
+      secret: appConfig.jwt.secret,
+      cookie: appConfig.jwt.cookieName,
+      alg: "HS256",
+    });
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
-      .route(pageRoutes.ADD_TODO, addToDoPage);
+      .route("/", createAuthenticatedPageRoutes(jwtMiddleware));
 
     const response = await app.fetch(
       new Request(`http://localhost${pageRoutes.ADD_TODO}`),
@@ -34,9 +39,14 @@ describe("addToDoPage", () => {
       appConfig.jwt.secret,
       "HS256",
     );
+    const jwtMiddleware = jwt({
+      secret: appConfig.jwt.secret,
+      cookie: appConfig.jwt.cookieName,
+      alg: "HS256",
+    });
     const app = new Hono<{ Variables: AppVariables }>()
       .use("*", createAppConfigMiddleware(appConfig))
-      .route(pageRoutes.ADD_TODO, addToDoPage);
+      .route("/", createAuthenticatedPageRoutes(jwtMiddleware));
 
     const response = await app.fetch(
       new Request(`http://localhost${pageRoutes.ADD_TODO}`, {
@@ -50,10 +60,10 @@ describe("addToDoPage", () => {
     expect(response.status).toBe(200);
     expect(html).toContain("<title>ToDo</title>");
     expect(html).toContain("<h1>Add ToDo</h1>");
-    expect(html).toContain('<a href="/">Home</a>');
-    expect(html).not.toContain('<a href="/add-todo">Add</a>');
-    expect(html).toContain('<a href="/about">About</a>');
+    expect(html).toContain(`<a href="${pageRoutes.HOME}">Home</a>`);
+    expect(html).not.toContain(`<a href="${pageRoutes.ADD_TODO}">Add</a>`);
+    expect(html).toContain(`<a href="${pageRoutes.ABOUT}">About</a>`);
     expect(html).toContain("<li>admin</li>");
-    expect(html).toContain('<form action="/api/logout" method="post">');
+    expect(html).toContain(`<form action="${apiRoutes.LOGOUT}" method="post">`);
   });
 });

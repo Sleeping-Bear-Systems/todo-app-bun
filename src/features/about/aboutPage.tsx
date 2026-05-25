@@ -1,7 +1,7 @@
 import type { AppVariables } from "@shared/appVariables.ts";
 import { Page } from "@shared/page.tsx";
 import { Hono } from "hono";
-import { AboutPageItem } from "./aboutPageItem";
+import { AboutPageItem } from "./aboutPageItem.tsx";
 
 export const aboutPage = new Hono<{ Variables: AppVariables }>().get(
   "/",
