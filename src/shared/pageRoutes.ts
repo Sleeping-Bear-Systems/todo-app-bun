@@ -1,4 +1,4 @@
-import { aboutPage } from "@features/about/aboutPage";
+import { aboutPage } from "@features/about/aboutPage.tsx";
 import { addToDoPage } from "@features/add-todo/addToDoPage.tsx";
 import { homePage } from "@features/home/homePage.tsx";
 import { loginPage } from "@features/login/loginPage.tsx";
