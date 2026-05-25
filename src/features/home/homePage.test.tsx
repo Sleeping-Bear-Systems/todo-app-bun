@@ -3,6 +3,7 @@ import { createAppConfig } from "@shared/appConfig.ts";
 import { createAppConfigMiddleware } from "@shared/appConfigMiddleware.ts";
 import type { AppVariables } from "@shared/appVariables.ts";
 import { pageRoutes } from "@shared/pageRoutes.ts";
+import { createValidTestJwtPayload } from "@shared/testJwt.ts";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { homePage } from "./homePage.tsx";
@@ -27,7 +28,7 @@ describe("homePage", () => {
       JWT_SECRET: "12345678901234567890123456789012",
     });
     const token = await sign(
-      { sub: "1234", preferred_username: "admin" },
+      createValidTestJwtPayload(),
       appConfig.jwt.secret,
       "HS256",
     );
