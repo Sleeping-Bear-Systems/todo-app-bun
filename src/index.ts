@@ -60,7 +60,7 @@ const app = new Hono<{ Variables: AppVariables }>()
   .route("/api", createAuthenticatedApiRoutes(jwtMiddleware))
   // Page routes
   .get("/", (c) => {
-    return c.redirect("/auth");
+    return c.redirect("/auth/home");
   })
   .route("/", createPageRoutes())
   .route("/", createAuthenticatedPageRoutes(jwtMiddleware));
