@@ -16,7 +16,6 @@ import { pageRoutes } from "@shared/routes";
 import { createStructuredLogger } from "@shared/structuredLogger.ts";
 import { addUser } from "@shared/user.ts";
 import { randomUUIDv7 } from "bun";
-import { roundToNearestHours } from "date-fns";
 import { type Context, Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
