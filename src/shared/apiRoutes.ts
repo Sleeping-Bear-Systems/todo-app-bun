@@ -19,12 +19,12 @@ export function createAuthenticatedApiRoutes(jwt: MiddlewareHandler) {
       c.set("validatedJwtPayload", validatedJwtPayload);
       await next();
     })
-    .route("/auth/add-todo", addToDoApi)
-    .route("/auth/logout", logoutApi);
+    .route("/auth/add-todo", addToDoApi);
 }
 
 export function createApiRoutes() {
   return new Hono<{ Variables: AppVariables }>()
     .route("/login", loginApi)
+    .route("/logout", logoutApi)
     .route("/ping", pingApi);
 }
