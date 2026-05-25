@@ -6,6 +6,7 @@ import { createAppConfig } from "./appConfig.ts";
 import { createAppConfigMiddleware } from "./appConfigMiddleware.ts";
 import { pageJwtMiddleware } from "./pageJwtMiddleware.ts";
 import { pageRoutes } from "./pageRoutes.ts";
+import { createValidTestJwtPayload } from "./testJwt.ts";
 
 describe("pageJwtMiddleware", () => {
   test("redirects to login when JWT cookie is missing", async () => {
@@ -49,14 +50,7 @@ describe("pageJwtMiddleware", () => {
       JWT_SECRET: "12345678901234567890123456789012",
     });
     const token = await sign(
-      {
-        sub: "1234",
-        preferred_username: "admin",
-        role: "admin",
-        iss: "todo-app",
-        exp: 2000000000,
-        iat: 1700000000,
-      },
+      createValidTestJwtPayload(),
       appConfig.jwt.secret,
       "HS256",
     );
@@ -86,14 +80,7 @@ describe("pageJwtMiddleware", () => {
       JWT_SECRET: "12345678901234567890123456789012",
     });
     const token = await sign(
-      {
-        sub: "1234",
-        preferred_username: "admin",
-        role: "admin",
-        iss: "todo-app",
-        exp: 2000000000,
-        iat: 1700000000,
-      },
+      createValidTestJwtPayload(),
       appConfig.jwt.secret,
       "HS256",
     );
