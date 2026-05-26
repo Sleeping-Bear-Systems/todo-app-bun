@@ -28,7 +28,7 @@ export const aboutPage = new Hono<{
           type="LinkAboutPageItemProps"
           label="Emmett"
           url="https://event-driven-io.github.io/emmett/"
-        ></AboutPageItem>
+        />
         <AboutPageItem
           type="LinkWithIconAboutPageItemProps"
           label="Datastar"
