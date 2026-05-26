@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@datalust/winston-seq": "^3.0.1",
+    "@event-driven-io/emmett": "^0.42.3",
     "@hono/zod-validator": "^0.8.0",
     "date-fns": "^4.3.0",
     "hono": "^4.12.23",

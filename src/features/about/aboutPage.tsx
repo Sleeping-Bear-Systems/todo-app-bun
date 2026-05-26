@@ -25,6 +25,11 @@ export const aboutPage = new Hono<{
           imageUrl="/images/hono.svg"
         />
         <AboutPageItem
+          type="LinkAboutPageItemProps"
+          label="Emmett"
+          url="https://event-driven-io.github.io/emmett/"
+        />
+        <AboutPageItem
           type="LinkWithIconAboutPageItemProps"
           label="Datastar"
           url="https://data-star.dev"
