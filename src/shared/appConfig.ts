@@ -30,7 +30,7 @@ export function createAppConfig(
     environment: environmentVariables.NODE_ENV,
     jwt: {
       secret: environmentVariables.JWT_SECRET,
-      cookieName: "todo-app",
+      cookieName: "todo-app-bun",
     },
     seq: {
       apiKey: environmentVariables.SEQ_API_KEY,

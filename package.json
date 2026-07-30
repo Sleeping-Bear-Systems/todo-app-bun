@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "todo-app",
+  "name": "todo-app-bun",
   "module": "index.ts",
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",

@@ -36,7 +36,7 @@ export function createStructuredLogger(appConfig: AppConfig): Logger {
       format.json(),
     ),
     defaultMeta: {
-      application: "todo-app",
+      application: "todo-app-bun",
       environment: appConfig.environment,
     },
     transports: combinedTransports,

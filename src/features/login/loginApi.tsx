@@ -42,7 +42,7 @@ export const loginApi = new Hono<{ Variables: AppVariables }>().post(
         sub: user.id,
         preferred_username: user.username,
         role: "admin",
-        iss: "todo-app",
+        iss: "todo-app-bun",
         exp: Math.floor(addDays(now, 1).getTime() / 1000),
         iat: Math.floor(now.getTime() / 1000),
       },

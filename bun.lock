@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "todo-app",
+      "name": "todo-app-bun",
       "dependencies": {
         "@datalust/winston-seq": "^3.0.1",
         "@event-driven-io/emmett": "^0.42.3",

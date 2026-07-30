@@ -7,7 +7,7 @@ export function createValidTestJwtPayload(
     sub: "1234",
     preferred_username: "admin",
     role: "admin",
-    iss: "todo-app",
+    iss: "todo-app-bun",
     exp: 2000000000,
     iat: 1700000000,
     ...overrides,

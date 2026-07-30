@@ -11,7 +11,7 @@ describe("createStructuredLogger", () => {
       environment: "test",
       jwt: {
         secret: "12345678901234567890123456789012",
-        cookieName: "todo-app",
+        cookieName: "todo-app-bun",
       },
       seq: {
         apiKey: undefined,
@@ -28,7 +28,7 @@ describe("createStructuredLogger", () => {
 
     expect(logger.level).toBe("info");
     expect(logger.defaultMeta).toEqual({
-      application: "todo-app",
+      application: "todo-app-bun",
       environment: "production",
     });
     expect(logger.transports).toHaveLength(1);
