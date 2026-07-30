@@ -1,4 +1,4 @@
-# todo-app
+# todo-app-bun
 
 ## Development Environment
 
